@@ -1,0 +1,15 @@
+Đoạn code trên định nghĩa một thành phần giao diện tên là PrivateRoute, được sử dụng trong React Router để bảo vệ các tuyến riêng tư trong ứng dụng. Nó nhận các thuộc tính của một tuyến (route) thông qua rest và sử dụng thuộc tính children để hiển thị nội dung của tuyến đó.
+
+Trong thành phần PrivateRoute, chúng ta lấy giá trị của token từ localStorage bằng cách sử dụng localStorage.getItem("token"). Token thường được sử dụng để xác thực người dùng đã đăng nhập hay chưa.
+
+Tiếp theo, chúng ta sử dụng thành phần Route từ React Router để định nghĩa tuyến. Chúng ta truyền rest (các thuộc tính của tuyến) vào {...rest} để giữ nguyên các thuộc tính như path, exact, và component nếu có.
+
+Trong phần render của Route, chúng ta sử dụng thuộc tính render và truyền một hàm callback. Hàm callback này nhận một đối tượng location làm tham số và trả về thành phần children.
+
+Tuy nhiên, trước khi render children, chúng ta kiểm tra xem token có tồn tại hay không. Nếu có, tức là người dùng đã đăng nhập, chúng ta cho phép hiển thị children. Ngược lại, nếu không có token, chúng ta sử dụng thành phần Redirect từ React Router để điều hướng người dùng đến trang đăng nhập (/login). Chúng ta cũng truyền đối tượng location hiện tại qua thuộc tính state để sau khi đăng nhập thành công, người dùng sẽ được chuyển hướng trở lại trang trước đó.
+
+Tóm lại, đoạn code trên tạo một thành phần PrivateRoute để bảo vệ các tuyến riêng tư trong ứng dụng. Nó kiểm tra xem người dùng đã đăng nhập hay chưa dựa trên sự tồn tại của token và điều hướng người dùng đến trang đăng nhập nếu cần thiết.
+
+
+
+
