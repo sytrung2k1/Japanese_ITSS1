@@ -1,5 +1,8 @@
+import DefaultLayout from "../../components/Layouts/DefaultLayout";
+import Search from "../../components/Search";
+
 function HomeSearch() {
-  return <h1>HomeSearch</h1>;
+  return <DefaultLayout content={<Search />}></DefaultLayout>;
 }
 
 export default HomeSearch;

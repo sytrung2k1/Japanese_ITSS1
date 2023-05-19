@@ -1,24 +1,22 @@
-import { Route, Redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route, Navigate } from "react-router-dom";
 
 export const PrivateRoute = ({ children, ...rest }) => {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
+  // const [token, setToken] = useState(false);
+  // console.log("token:", token);
+  // useEffect(() => {
+  //   const tokenFromLocalStorage = localStorage.getItem("token");
+  //   if (tokenFromLocalStorage) {
+  //     setToken(true);
+  //   }
+  // }, []);
 
-  //   Trong trường hợp không có token, người dùng sẽ được điều hướng đến trang "/login", và trang hiện tại (location) sẽ được truyền dưới dạng state để sau khi đăng nhập thành công, người dùng sẽ được chuyển hướng trở lại trang trước đó.
+  // return (
+  //   <Route {...rest} element={token ? children : <Navigate to="/login" />} />
+  // );
+
   return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        token ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
+    <Route {...rest} element={false ? children : <Navigate to="/login" />} />
   );
 };
