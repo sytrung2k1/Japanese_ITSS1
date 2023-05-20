@@ -15,7 +15,6 @@ function Login() {
 
   const handleLogin = async () => {
     if (username.trim() === "") {
-      console.log("error");
     } else if (password.trim() === "") {
       console.log("error");
     } else {
