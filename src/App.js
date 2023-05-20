@@ -13,17 +13,17 @@ function App() {
       <Routes>
         {/* 1 */}
         <Route path="/login" element={<Login />} />
-        {/* 2 */}
+        {/* 2 Quỳnh*/}
         <Route path="/signup" element={<SignUp />} />
-        {/* 3 */}
+        {/* 3 Quỳnh*/}
         <Route path="/home" element={<HomeSearch />} />
-        {/* 6 */}
+        {/* 6 Ánh*/}
         <Route path="/student/feedback" element={<Feedback />} />
-        {/* 7 */}
+        {/* 7 Trưởng */}
         <Route path="/student/bookmark" element={<BookmarkList />} />
-        {/* 8 */}
+        {/* 8 Tú*/}
         <Route path="/teacher/studentlist" element={<StudentList />} />
-        {/* 9 */}
+        {/* 9 Trung */}
         <Route path="/admin/manager" element={<UserList />} />
       </Routes>
     </Router>
