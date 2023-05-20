@@ -3,7 +3,7 @@ import HomeSearch from "./pages/HomeSearch";
 import Feedback from "./pages/Student/Feedback";
 import BookmarkList from "./pages/Student/BookmarkList";
 import StudentList from "./pages/Teacher/StudentList";
-import Manager from "./components/Admin/manger";
+import UserList from "./components/Admin/UserList";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 
@@ -24,7 +24,7 @@ function App() {
         {/* 8 */}
         <Route path="/teacher/studentlist" element={<StudentList />} />
         {/* 9 */}
-        <Route path="/admin/manager" element={<Manager />} />
+        <Route path="/admin/manager" element={<UserList />} />
       </Routes>
     </Router>
   );
