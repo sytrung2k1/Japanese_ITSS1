@@ -3,30 +3,35 @@ import styles from "./UserList.module.scss";
 import { useEffect, useState } from "react";
 import { userApi } from "../../../services/user-api";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router";
 
 const cx = classNames.bind(styles);
 
 function UserList() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const itemsPerPage = 2; // Number of items per page
   const [currentPage, setCurrentPage] = useState(0); // Current active page
-
   useEffect(() => {
     getUsers();
   }, []);
-
   const getUsers = async () => {
     let res = await userApi.getUsers();
-    console.log("res:", res);
+    // console.log("res:", res);
     setUsers(res);
   };
-
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentUsers = users.slice(startIndex, endIndex);
 
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
+  };
+
+  const hanldLogout = () => {
+    localStorage.removeItem("token");
+
+    return navigate("/login");
   };
 
   return (
@@ -77,7 +82,7 @@ function UserList() {
           ))}
         </tbody>
       </table>
-
+      <button onClick={hanldLogout}>logout</button>
       <div className={cx("pagination-container")}>
         <ReactPaginate
           previousClassName={cx("pagination-item", "pagination-previous")}

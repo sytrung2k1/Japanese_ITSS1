@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./login.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { authApi } from "../../services/auth-api";
 import { useNavigate } from "react-router-dom";
 
@@ -11,59 +11,57 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async () => {
-    if (username.trim() === "") {
-      console.log("error");
-    } else if (password.trim() === "") {
-      console.log("error");
-    } else {
-      try {
-        let response = await authApi.login({
-          username: username,
-          password: password,
-        });
-        const token = response.data.accessToken;
-        // Lưu token vào Local Storage
-        localStorage.setItem("token", token);
-        // Đăng nhập thành công, xử lý logic sau khi đăng nhập
-        console.log("Đăng nhập thành công");
-        // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
-        navigate("/home");
-      } catch (error) {
-        // Xử lý lỗi đăng nhập
-        setError(
-          "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập."
-        );
-        console.error(error);
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      let response = await authApi.login(username, password);
+      if (response && response.accessToken) {
+        const token = response.accessToken;
+        console.log("token:", token);
+        localStorage.setItem("token", token); // Lưu token vào Local Storage
+        alert("Đăng nhập thành công"); // Đăng nhập thành công, xử lý logic sau khi đăng nhập
+        navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+      } else {
+        alert("Tài khoản đăng nhập hoặc mật khẩu không chính xác");
       }
+    } catch (error) {
+      // Xử lý lỗi đăng nhập
+      setError(
+        "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập."
+      );
+      console.error(error);
     }
   };
   return (
-    <div>
-      <h1 className={cx("header")}>Login</h1>;
-      <form>
-        <div>
-          <label htmlFor="username">Username: </label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          ></input>
-        </div>
+    <div className={cx("app")}>
+      <h1 className={cx("header")}>Login</h1>
+      <div className={cx("form")}>
+        <form onSubmit={handleLogin}>
+          <div className={cx("input-container")}>
+            <label>Username: </label>
+            <input
+              type="text"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            ></input>
+          </div>
 
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-        </div>
+          <div className={cx("input-container")}>
+            <label>Password: </label>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div>
 
-        <button onClick={handleLogin}>Đăng nhập</button>
-      </form>
+          <div className={cx("button-container")}>
+            <input type="submit" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

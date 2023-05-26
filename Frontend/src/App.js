@@ -4,10 +4,16 @@ import Feedback from "./pages/Student/Feedback";
 import BookmarkList from "./pages/Student/BookmarkList";
 import StudentList from "./pages/Teacher/StudentList";
 import UserList from "./components/Admin/UserList";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import SignUp from "./pages/SignUp";
 
 function App() {
+  const token = localStorage.getItem("token");
   return (
     <Router>
       <Routes>
@@ -24,7 +30,11 @@ function App() {
         {/* 8 Tú*/}
         <Route path="/teacher/studentlist" element={<StudentList />} />
         {/* 9 Trung */}
-        <Route path="/admin/manager" element={<UserList />} />
+        {/* <PrivateRoute path="/admin/manager" element={<UserList />} /> */}
+        <Route
+          path="/admin/manager"
+          element={token ? <UserList /> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );
