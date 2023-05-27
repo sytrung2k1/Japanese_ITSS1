@@ -1,3 +1,166 @@
-.red {
-  color: blue;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(243, 243, 242);
+}
+
+.search_image {
+  width: 100%;
+  border-radius: 99em;
+  height: 6em;
+  width: 6em;
+}
+.content0 {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.content0 .content1 {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.content0 .content1 h2 {
+  text-align: center;
+  font-size: 20px;
+}
+
+.loc {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.chung {
+  background-color: rgb(219, 218, 216);
+  margin-bottom: 10px;
+  border: 1px solid rgb(126, 125, 125);
+  font-size: 15px;
+  width: 120px;
+}
+
+.dong9 button i {
+  background: rgb(219, 218, 216);
+}
+
+.dong9 button {
+  width: 120px;
+  padding: 1px 4px;
+  background-color: rgb(219, 218, 216);
+  font-size: 15px;
+  border: 1px solid rgb(126, 125, 125);
+  color: rgb(84, 85, 85);
+}
+
+.dong9 :hover {
+  background-color: rgb(248, 136, 108);
+}
+
+.loc {
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  display: grid;
+}
+
+.rating {
+  padding: 0px 3px;
+  color: rgb(240, 197, 8);
+  width: fit-content;
+  background-color: rgb(196, 231, 233);
+}
+
+.rating {
+  background-color: rgb(196, 231, 233);
+}
+.rating i {
+  background-color: rgb(196, 231, 233);
+}
+.chitiet {
+  display: flex;
+  border: 1px solid rgb(126, 125, 125);
+  margin: 10% 50% 70% 80%;
+  background: rgb(165, 114, 114);
+  padding: 0px 5px;
+}
+.content2 {
+  margin: auto 160px auto 120px;
+}
+.giaovien {
+  padding: 5px;
+  grid-template-columns: 17% 60% 20%;
+  display: grid;
+  border: 1px solid rgb(126, 125, 125);
+  width: 100%;
+  height: fit-content;
+  background: rgb(219, 218, 216);
+  margin: 20px;
+}
+
+.cot1 {
+  text-align: center;
+  margin: auto;
+  background: rgb(219, 218, 216);
+  width: fit-content;
+}
+
+.cot2 {
+  margin: auto;
+  background: rgb(219, 218, 216);
+  width: fit-content;
+}
+
+.cot3 {
+  background: rgb(219, 218, 216);
+  width: fit-content;
+}
+
+h4 {
+  background: rgb(219, 218, 216);
+}
+
+.mota {
+  background: rgb(219, 218, 216);
+}
+@media (min-width: 680px) and (max-width: 1120px) {
+  .content2 {
+    margin: auto 90px auto 50px;
+  }
+  .search_image {
+    height: 5em;
+    width: 5em;
+  }
+  .cot2 p {
+    font-size: 14px;
+  }
+  .chitiet {
+    font-size: 11px;
+    padding: 0px 4px;
+
+  }
+  .giaovien {
+    grid-template-columns: 20% 55% 20%;
+  }
+}
+@media screen and (max-width: 680px) {
+  .content2 {
+    margin: auto 50px auto 10px;
+  }
+  .search_image {
+    height: 4em;
+    width: 4em;
+  }
+  .cot2 p {
+    font-size: 13px;
+  }
+  .chitiet {
+    font-size: 9px;
+    padding: 0px 2px;
+  }
+  .giaovien {
+    grid-template-columns: 20% 52% 20%;
+  }
 }
