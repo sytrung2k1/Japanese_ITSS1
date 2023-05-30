@@ -153,14 +153,14 @@ async function login(user_name, password) {
 		const data = await getUserByUsername(user_name);
 		const user = data[0];
 		if (!user) {
-			throw res.status(401).json({ message: "Invalid credentials" });
+			throw { message: "Invalid credentials" };
 		}
 
 		// Compare the provided password with the stored hashed password
 		const isPasswordValid = await bcrypt.compare(password, user.password);
 
 		if (!isPasswordValid) {
-			throw res.status(401).json({ message: "Invalid credentials" });
+			throw { message: "Invalid credentials" };
 		}
 
 		// Generate a JWT with a secret key

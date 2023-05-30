@@ -2,9 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const bookmarkController = require("../controllers/bookmarkController");
+const authenticateToken = require("../middlewares/authMiddleware");
 
 // Create a bookmark
-router.post("/", async (req, res, next) => {
+router.post("/", authenticateToken, async (req, res, next) => {
 	try {
 		const result = await bookmarkController.createBookmark(req.body);
 		return res.status(200).json(result);
@@ -15,7 +16,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // Read all bookmarks
-router.get("/", async (req, res, next) => {
+router.get("/", authenticateToken, async (req, res, next) => {
 	try {
 		const result = await bookmarkController.getAllBookmarks();
 		return res.status(200).json(result);
@@ -26,7 +27,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // Read a bookmark by ID
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", authenticateToken, async (req, res, next) => {
 	try {
 		const bookmarkId = req.params.id;
 		const result = await bookmarkController.getBookmarkById(bookmarkId);
@@ -38,7 +39,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Update a bookmark by ID
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authenticateToken, async (req, res, next) => {
 	try {
 		const bookmarkId = req.params.id;
 		const result = await bookmarkController.updateBookmark(
@@ -53,7 +54,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // Delete a bookmark by ID
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authenticateToken, async (req, res, next) => {
 	try {
 		const bookmarkId = req.params.id;
 		const result = await bookmarkController.deleteBookmark(bookmarkId);

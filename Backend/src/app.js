@@ -18,6 +18,7 @@ app.use(
 		extended: true,
 	})
 );
+app.use(cors());
 app.get("/", (req, res) => {
 	res.json({ message: "ok" });
 });
