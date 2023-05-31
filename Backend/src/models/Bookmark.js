@@ -51,21 +51,23 @@ async function getBookmarkById(bookmarkId) {
 
 // Update a bookmark by ID
 async function updateBookmark(bookmarkId, data) {
-	const query = `UPDATE Bookmark SET
+	try {
+		const query = `UPDATE Bookmark SET
     studentId = ?,
     teacher_profile_id = ?,
     target_id = ?,
     status = ?
     WHERE id = ?`;
-	const values = [
-		data.studentId,
-		data.teacher_profile_id,
-		data.target_id,
-		data.status,
-		bookmarkId,
-	];
 
-	try {
+		const bookmark = await getBookmarkById(bookmarkId);
+		const values = [
+			data.studentId || bookmark.studentId,
+			data.teacher_profile_id || bookmark.teacher_profile_id,
+			data.target_id || bookmark.target_id,
+			data.status || bookmark.status,
+			bookmarkId,
+		];
+
 		const result = await db.query(query, values);
 		return result;
 	} catch (error) {

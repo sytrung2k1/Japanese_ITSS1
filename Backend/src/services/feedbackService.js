@@ -4,7 +4,7 @@ const Feedback = require("../models/Feedback");
 // Create a feedback
 async function createFeedback(data) {
 	try {
-		const result = await Feedback.create(data);
+		const result = await Feedback.createFeedback(data);
 		return result;
 	} catch (error) {
 		console.error("Error creating feedback:", error);

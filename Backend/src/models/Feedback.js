@@ -52,22 +52,23 @@ async function getFeedbackById(feedbackId) {
 
 // Update a feedback by ID
 async function updateFeedback(feedbackId, feedbackData) {
-	const query = `UPDATE Feedback SET 
+	try {
+		const query = `UPDATE Feedback SET 
     studentId = ?, 
     teacher_profile_id = ?, 
     feedback_content = ?, 
     rating = ? 
     WHERE id = ?`;
 
-	const values = [
-		feedbackData.studentId,
-		feedbackData.teacher_profile_id,
-		feedbackData.feedback_content,
-		feedbackData.rating,
-		feedbackId,
-	];
+		const data = await getFeedbackById(feedbackId);
 
-	try {
+		const values = [
+			feedbackData.studentId || data.studentId,
+			feedbackData.teacher_profile_id || data.teacher_profile_id,
+			feedbackData.feedback_content || data.feedback_content,
+			feedbackData.rating || data.rating,
+			feedbackId,
+		];
 		const result = await db.query(query, values);
 		return result;
 	} catch (error) {
