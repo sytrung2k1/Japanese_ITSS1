@@ -1,3 +1,135 @@
-.header {
-  color: crimson;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Times New Roman", sans-serif;
+}
+
+section {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+}
+section .content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	
+}
+.input-form label{
+	background-color: #d9d9d9 ;
+	
+}
+section .content .form {
+	width: 30%;
+	padding: 40px;
+	margin: 5%;
+	background-color: #d9d9d9 ;
+	border-radius: 10px;
+}
+section .content .form .input-form {
+	margin-bottom: 5px;
+	margin: 5px 10px;
+	width: 100%;
+	padding: 5px;
+	display: contents;
+	
+}
+section .content .form .input-form .doituong {
+	font-size: 15px;
+}
+.form form{
+	background-color: #d9d9d9 ;
+
+}
+section .content .form .input-form input {
+	width: 100%;
+	padding: 10px 20px;
+	outline: none;
+	border: 1px solid #fff;
+	font-size: 16px;
+	letter-spacing: 1px;
+	color: #042515;
+	background: #fff;
+	border-radius: 5px;
+	display: block;
+	margin-bottom: 10px;
+}
+section .content .form .input-form input[type="submit"] {
+	background: linear-gradient(90deg, rgb(41, 40, 40), rgb(82, 82, 82), rgb(170, 169, 170));
+	width: 80%;
+	margin: auto;
+	display: block;
+	color: #fff;
+	outline: none;
+	border: none;
+	font-weight: 500;
+	cursor: pointer;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.12),
+		0 8px 8px rgba(0, 0, 0, 0.12), 0 16px 16px rgba(0, 0, 0, 0.12);
+	border-radius: 8px;
+}
+section .content .form .input-form input[type="submit"]:hover {
+	background: linear-gradient(90deg, rgb(233, 67, 67), rgb(218, 127, 127), rgb(230, 202, 202));
+}
+
+section .content .form h2 {
+	color: black;
+	font-size: 2em;
+	font-weight: bold;
+	display: block;
+	letter-spacing: 4px;
+	/* border-bottom-color: 5px chocolate; */
+	margin-bottom: 15px;
+	margin-top: 5px;
+	text-align: center;
+	background-color: #d9d9d9;
+
+}
+@media (min-width:680px) and (max-width: 1120px) {
+	section .content {
+		z-index: 1;
+	}
+	section {
+		margin-top: 80px;
+		height: 60vh;
+	}
+	section .content .form {
+		padding: 25px;
+
+	}
+	section .content .form .input-form input {
+		padding: 5px 20px;
+	}
+}
+
+@media screen and (max-width: 680px) {
+	section {
+		margin-top: 130px;
+		height: 40vh;
+	}
+	section .content .form {
+		padding: 18px;
+
+	}
+	section .content .form .input-form input {
+		padding: 3px 20px;
+	}
+	section .content .form h2{
+		font-size: 1em;
+	}
+	.input-form label{
+		font-size: 0.7em;
+	}
+	section .content .form .input-form .doituong {
+		font-size: 10px;
+	}
+	section .content .form .input-form input[type="submit"] {
+	height: 20px;
+	font-size: 10px;
+
+	}
 }
