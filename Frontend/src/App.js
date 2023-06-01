@@ -11,6 +11,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import SignUp from "./pages/SignUp";
+import TeacherProfile from "./pages/Teacher/TeacherProfile";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -23,6 +24,8 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         {/* 3 Quỳnh*/}
         <Route path="/home" element={<HomeSearch />} />
+        {/* 4 Tú*/}
+        <Route path="/teacher/profile" element={<TeacherProfile />} />
         {/* 6 Ánh*/}
         <Route path="/student/feedback" element={<Feedback />} />
         {/* 7 Trưởng */}
