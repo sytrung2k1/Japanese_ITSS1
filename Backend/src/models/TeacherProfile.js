@@ -58,24 +58,26 @@ async function getTeacherProfileById(teacherProfileId) {
 
 // Update a teacher profile
 async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
-	const query = `UPDATE TeacherProfile SET 
+	try {
+		const query = `UPDATE TeacherProfile SET 
     teacher_id = ?, target_id = ?, mail = ?, phone_number = ?, 
     experience = ?, level = ?, tution = ?, address = ?, available_day = ?
     WHERE id = ?`;
-	const values = [
-		teacherProfileData.teacher_id,
-		teacherProfileData.target_id,
-		teacherProfileData.mail,
-		teacherProfileData.phone_number,
-		teacherProfileData.experience,
-		teacherProfileData.level,
-		teacherProfileData.tution,
-		teacherProfileData.address,
-		teacherProfileData.available_day,
-		teacherProfileId,
-	];
 
-	try {
+		const data = await getTeacherProfileById(teacherProfileId);
+		const values = [
+			teacherProfileData.teacher_id || data.teacher_id,
+			teacherProfileData.target_id || data.target_id,
+			teacherProfileData.mail || data.mail,
+			teacherProfileData.phone_number || data.phone_number,
+			teacherProfileData.experience || data.experience,
+			teacherProfileData.level || data.level,
+			teacherProfileData.tution || data.tution,
+			teacherProfileData.address || data.address,
+			teacherProfileData.available_day || data.available_day,
+			teacherProfileId,
+		];
+
 		const result = await db.query(query, values);
 		return result;
 	} catch (error) {

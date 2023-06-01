@@ -173,7 +173,7 @@ async function login(user_name, password) {
 			expiresIn: "1h",
 		});
 		// Return the JWT as a response
-		return { TokenId: token };
+		return { ...payload, TokenId: token };
 	} catch (error) {
 		console.error("Error while logging in:", error.message);
 		throw error;

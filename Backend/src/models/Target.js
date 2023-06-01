@@ -46,10 +46,11 @@ async function getTargetById(targetId) {
 
 // Update a target
 async function updateTarget(targetId, targetData) {
-	const query = `UPDATE Target SET target_name = ? WHERE id = ?`;
-	const values = [targetData.target_name, targetId];
-
 	try {
+		const query = `UPDATE Target SET target_name = ? WHERE id = ?`;
+		const data = await getTargetById(targetId);
+		const values = [targetData.target_name || data.target_name, targetId];
+
 		const result = await db.query(query, values);
 		return result;
 	} catch (error) {

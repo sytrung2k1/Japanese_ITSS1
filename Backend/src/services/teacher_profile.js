@@ -50,7 +50,7 @@ async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
 		if (!teacherProfile) {
 			throw new Error("Teacher profile not found");
 		}
-		return result;
+		return teacherProfile;
 	} catch (error) {
 		console.error("Error updating teacher profile:", error);
 		throw error;
