@@ -1,7 +1,7 @@
 import { axiosClient } from "./axios-client";
 
 export const authApi = {
-  login(username, password) {
-    return axiosClient.post("/login", { username, password });
+  login(user_name, password) {
+    return axiosClient.post("/users/login", { user_name, password });
   },
 };

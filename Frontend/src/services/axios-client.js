@@ -1,11 +1,18 @@
 import axios from "axios";
+import { BASE_URL_API } from "../constants/config";
+
+const token = localStorage.getItem("token");
 
 export const axiosClient = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: BASE_URL_API,
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+if (token) {
+  axiosClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+}
 
 axiosClient.interceptors.response.use(
   function (response) {
