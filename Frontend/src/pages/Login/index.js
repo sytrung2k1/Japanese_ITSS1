@@ -7,16 +7,16 @@ import { useNavigate } from "react-router-dom";
 const cx = classNames.bind(styles);
 function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [user_name, setUser_name] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      let response = await authApi.login(username, password);
-      if (response && response.accessToken) {
-        const token = response.accessToken;
+      let response = await authApi.login(user_name, password);
+      console.log("res: ", response);
+      if (response && response.TokenId) {
+        const token = response.TokenId;
         console.log("token:", token);
         localStorage.setItem("token", token); // Lưu token vào Local Storage
         alert("Đăng nhập thành công"); // Đăng nhập thành công, xử lý logic sau khi đăng nhập
@@ -38,12 +38,12 @@ function Login() {
       <div className={cx("form")}>
         <form onSubmit={handleLogin}>
           <div className={cx("input-container")}>
-            <label>Username: </label>
+            <label>User_name: </label>
             <input
               type="text"
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={user_name}
+              onChange={(e) => setUser_name(e.target.value)}
             ></input>
           </div>
 

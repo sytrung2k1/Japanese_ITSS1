@@ -17,12 +17,13 @@ import {
 const cx = classNames.bind(styles);
 function Search() {
   const [teachers, setTeachers] = useState([]);
-  // useEffect(() => {
-  //   getTeachers();
-  // }, []);
+  useEffect(() => {
+    getTeachers();
+  }, []);
 
   const getTeachers = async () => {
     let res = await teacherApi.getTeachers();
+    console.log("res:", res);
     setTeachers(res);
   };
   return (
