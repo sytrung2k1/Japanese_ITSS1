@@ -38,6 +38,8 @@ function App() {
           path="/admin/manager"
           element={token ? <UserList /> : <Navigate to="/login" />}
         />
+        {/* test */}
+        <Route path="/profile/:id" element={<TeacherProfile />} />
       </Routes>
     </Router>
   );

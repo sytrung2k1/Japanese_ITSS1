@@ -1,9 +1,10 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
-import { Avatar, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import styles from "./Search.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { teacherApi } from "../../services/teacher-api";
+import Info from "../Teacher/Info";
 import {
   DAY,
   TIME,
@@ -15,6 +16,7 @@ import {
   LEVER,
 } from "../../constants/common";
 const cx = classNames.bind(styles);
+
 function Search() {
   const [teachers, setTeachers] = useState([]);
   useEffect(() => {
@@ -30,7 +32,7 @@ function Search() {
     <>
       <div className={cx("content0")}>
         <div className={cx("content1")}>
-          <h1>自分を合う教師を探しましょう ~</h1>
+          <p className={cx("tittle")}>自分を合う教師を探しましょう ~</p>
           <div className={cx("loc")}>
             <div>
               <select name="" className={cx("chung")}>
@@ -143,46 +145,9 @@ function Search() {
           </div>
         </div>
         <div className={cx("content2")}>
-          <div className={cx("giaovien")}>
-            <div className={cx("cot1")}>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg"
-                sx={{ width: 112, height: 112 }}
-              />
-            </div>
-            <div className={cx("cot2")}>
-              <h4>Thang</h4>
-              <div className={cx("rating")}>
-                <i className={cx("fa fa-star")}></i>
-                <i className={cx("fa fa-star")}></i>
-                <i className={cx("fa fa-star")}></i>
-                <i className={cx("fa fa-star")}></i>
-                <i className={cx("fa fa-star")}></i>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisic elit. Tempora
-                aperiam fuga dolorem consequa, sunt, reiciendis quo neque
-                dolores
-              </p>
-            </div>
-            <div className={cx("cot3")}>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "var(--primary)",
-                  color: "black",
-                  fontSize: 16,
-                  fontWeight: 700,
-                  "&:hover": {
-                    backgroundColor: "var(--primary-hover)",
-                  },
-                }}
-              >
-                もっと詳しく
-              </Button>
-            </div>
-          </div>
+          {teachers.map((teacher, i) => (
+            <Info key={i} teacher={teacher} />
+          ))}
         </div>
       </div>
     </>
