@@ -1,0 +1,53 @@
+export const teacherList = [
+  {
+    id: 1,
+    mail: "teacher1@gmail.com",
+    day: "Monday",
+    time: "Morning",
+    salary: 400,
+    address: "Ha Noi",
+    gender: "Male",
+    age: 22,
+    purpose: "Business",
+    level: "Beginner",
+  },
+
+  {
+    id: 2,
+    mail: "teacher2@gmail.com",
+    day: "Monday",
+    time: "Morning",
+    salary: 400,
+    address: "Ha Noi",
+    gender: "Famale",
+    age: 22,
+    purpose: "Business",
+    level: "Beginner",
+  },
+
+  {
+    id: 3,
+    mail: "teacher3@gmail.com",
+    day: "Monday",
+    time: "Morning",
+    salary: 500,
+    address: "Ha Noi",
+    gender: "Male",
+    age: 22,
+    purpose: "Business",
+    level: "Beginner",
+  },
+
+  {
+    id: 4,
+    mail: "teacher4@gmail.com",
+    day: "Monday",
+    time: "Morning",
+    salary: 100,
+    address: "Ha Noi",
+    gender: "Male",
+    age: 23,
+    purpose: "Business",
+    level: "Beginner",
+  },
+];
