@@ -25,7 +25,7 @@ function App() {
         {/* 3 Quỳnh*/}
         <Route path="/home" element={<HomeSearch />} />
         {/* 4 Tú*/}
-        <Route path="/teacher/profile" element={<TeacherProfile />} />
+        <Route path="/profile/:id" element={<TeacherProfile />} />
         {/* 6 Ánh*/}
         <Route path="/student/feedback" element={<Feedback />} />
         {/* 7 Trưởng */}
@@ -38,8 +38,6 @@ function App() {
           path="/admin/manager"
           element={token ? <UserList /> : <Navigate to="/login" />}
         />
-        {/* test */}
-        <Route path="/profile/:id" element={<TeacherProfile />} />
       </Routes>
     </Router>
   );

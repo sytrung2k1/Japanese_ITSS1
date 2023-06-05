@@ -2,7 +2,11 @@ import DefaultLayout from "../../components/Layouts/DefaultLayout";
 import Search from "../../components/Search";
 
 function HomeSearch() {
-  return <DefaultLayout content={<Search />}></DefaultLayout>;
+  return (
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--background)" }}>
+      <DefaultLayout content={<Search />}></DefaultLayout>;
+    </div>
+  );
 }
 
 export default HomeSearch;
