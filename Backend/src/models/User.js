@@ -60,6 +60,20 @@ async function getUserById(userId) {
 	}
 }
 
+// Get a user by ID
+async function getUserByRoleId(roleId) {
+	const query = "SELECT * FROM User WHERE roleId = ?";
+	const values = [roleId];
+
+	try {
+		const result = await db.query(query, values);
+		return result;
+	} catch (error) {
+		console.error("Error while get user", error.message);
+		throw error;
+	}
+}
+
 // Get a user by Username
 async function getUserByUsername(username) {
 	const query = "SELECT * FROM User WHERE user_name = ?";
@@ -167,7 +181,7 @@ async function login(user_name, password) {
 		const payload = {
 			user_id: user.id,
 			user_name: user.user_name,
-			role: user.role,
+			roleId: user.roleId,
 		};
 		const token = jwt.sign(payload, config.jwtSecret, {
 			expiresIn: "1h",
@@ -189,4 +203,5 @@ module.exports = {
 	getUserByUsername,
 	register,
 	login,
+	getUserByRoleId,
 };

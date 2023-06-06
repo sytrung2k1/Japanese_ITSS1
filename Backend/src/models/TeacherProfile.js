@@ -39,6 +39,78 @@ async function getAllTeacherProfiles() {
 	}
 }
 
+// Get all teacher profiles
+async function getAllDetailTeacherProfile() {
+	const query = `SELECT
+  TeacherProfile.id,
+  TeacherProfile.teacher_id,
+  TeacherProfile.target_id,
+  TeacherProfile.mail,
+  TeacherProfile.phone_number,
+  TeacherProfile.experience,
+  TeacherProfile.level,
+  TeacherProfile.tution,
+  TeacherProfile.address,
+  TeacherProfile.available_day,
+  User.user_name,
+  User.first_name,
+  User.last_name,
+  User.sex,
+  User.age
+FROM
+  TeacherProfile
+JOIN
+  User ON TeacherProfile.teacher_id = User.id
+`;
+
+	try {
+		const teacherProfiles = await db.query(query);
+		return teacherProfiles;
+	} catch (error) {
+		console.error("Error getting all detail teacher profiles:", error);
+		throw error;
+	}
+}
+
+// Get a teacher profile by ID
+async function getDetailTeacherProfileById(teacherProfileId) {
+	const query = `SELECT
+  TeacherProfile.id,
+  TeacherProfile.teacher_id,
+  TeacherProfile.target_id,
+  TeacherProfile.mail,
+  TeacherProfile.phone_number,
+  TeacherProfile.experience,
+  TeacherProfile.level,
+  TeacherProfile.tution,
+  TeacherProfile.address,
+  TeacherProfile.available_day,
+  User.user_name,
+  User.first_name,
+  User.last_name,
+  User.sex,
+  User.age
+FROM
+  TeacherProfile
+JOIN
+  User ON TeacherProfile.teacher_id = User.id
+WHERE
+	User.id = ?
+`;
+	const values = [teacherProfileId];
+
+	try {
+		const teacherProfile = await db.query(query, values);
+		if (teacherProfile.length === 0) {
+			throw new Error("Teacher profile not found");
+		}
+		return teacherProfile[0];
+	} catch (error) {
+		console.error("Error getting teacher profile:", error);
+		throw error;
+	}
+}
+
 // Get a teacher profile by ID
 async function getTeacherProfileById(teacherProfileId) {
 	const query = `SELECT * FROM TeacherProfile WHERE id = ?`;
@@ -106,4 +178,6 @@ module.exports = {
 	getTeacherProfileById,
 	updateTeacherProfile,
 	deleteTeacherProfile,
+	getAllDetailTeacherProfile,
+	getDetailTeacherProfileById,
 };

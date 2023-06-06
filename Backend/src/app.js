@@ -11,6 +11,7 @@ const bookmarkRoutes = require("./routes/bookmarkRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 const targetTeacherProfileRoutes = require("./routes/targetTeacherProfileRoute");
 const cors = require("cors");
+const requireAdminRole = require("./middlewares/adminMiddleware");
 
 app.use(express.json());
 app.use(
@@ -30,6 +31,7 @@ app.use((err, req, res, next) => {
 	res.status(statusCode).json({ message: err.message });
 	return;
 });
+// app.use(requireAdminRole);
 
 app.use("/users", userRoute);
 app.use("/targets", targetRoutes);

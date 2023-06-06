@@ -24,6 +24,33 @@ async function getAllTeacherProfiles() {
 	}
 }
 
+// Get all teacher profiles
+async function getAllDetailTeacherProfile() {
+	try {
+		const teacherProfiles = await TeacherProfile.getAllDetailTeacherProfile();
+		return teacherProfiles;
+	} catch (error) {
+		console.error("Error getting all detail teacher profiles:", error);
+		throw error;
+	}
+}
+
+// Get a teacher profile by ID
+async function getDetailTeacherProfileById(teacherProfileId) {
+	try {
+		const teacherProfile = await TeacherProfile.getDetailTeacherProfileById(
+			teacherProfileId
+		);
+		if (!teacherProfile) {
+			throw new Error("Teacher profile not found");
+		}
+		return teacherProfile;
+	} catch (error) {
+		console.error("Error getting teacher profile:", error);
+		throw error;
+	}
+}
+
 // Get a teacher profile by ID
 async function getTeacherProfileById(teacherProfileId) {
 	try {
@@ -79,4 +106,6 @@ module.exports = {
 	getTeacherProfileById,
 	updateTeacherProfile,
 	deleteTeacherProfile,
+	getAllDetailTeacherProfile,
+	getDetailTeacherProfileById,
 };

@@ -27,6 +27,7 @@ function authenticateToken(req, res, next) {
 	try {
 		// Verify the token using your secret key
 		const decoded = jwt.verify(token, config.jwtSecret);
+		req.userRole = decoded.roleId;
 		console.log(decoded);
 		next();
 		// ...

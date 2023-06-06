@@ -22,6 +22,17 @@ async function getAllUsers() {
 	}
 }
 
+// Get all user by Role ID
+async function getUserByRoleId(roleId) {
+	try {
+		const user = await User.getUserByRoleId(roleId);
+		return user;
+	} catch (error) {
+		console.error("Error retrieving user:", error);
+		throw error;
+	}
+}
+
 // Get a user by ID
 async function getUserById(userId) {
 	try {
@@ -85,4 +96,5 @@ module.exports = {
 	getAllUsers,
 	register,
 	login,
+	getUserByRoleId,
 };

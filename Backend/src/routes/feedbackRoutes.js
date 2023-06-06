@@ -5,7 +5,7 @@ const feedbackController = require("../controllers/feedbackController");
 const authenticateToken = require("../middlewares/authMiddleware");
 
 // Create a feedback
-router.post("/", authenticateToken, async (req, res, next) => {
+router.post("/", async (req, res, next) => {
 	try {
 		const result = await feedbackController.createFeedback(req.body);
 		return res.status(201).json(result);
@@ -16,7 +16,7 @@ router.post("/", authenticateToken, async (req, res, next) => {
 });
 
 // Read all feedbacks
-router.get("/", authenticateToken, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
 	try {
 		const result = await feedbackController.getAllFeedbacks();
 		return res.status(200).json(result);
@@ -27,7 +27,7 @@ router.get("/", authenticateToken, async (req, res, next) => {
 });
 
 // Read a feedback by ID
-router.get("/:id", authenticateToken, async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
 	try {
 		const feedbackId = req.params.id;
 		const result = await feedbackController.getFeedbackById(feedbackId);
@@ -39,7 +39,7 @@ router.get("/:id", authenticateToken, async (req, res, next) => {
 });
 
 // Update a feedback by ID
-router.put("/:id", authenticateToken, async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
 	try {
 		const feedbackId = req.params.id;
 		const result = await feedbackController.updateFeedback(
@@ -54,7 +54,7 @@ router.put("/:id", authenticateToken, async (req, res, next) => {
 });
 
 // Delete a feedback by ID
-router.delete("/:id", authenticateToken, async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
 	try {
 		const feedbackId = req.params.id;
 		const result = await feedbackController.deleteFeedback(feedbackId);

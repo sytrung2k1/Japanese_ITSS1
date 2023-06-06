@@ -23,6 +23,31 @@ async function getAllTeacherProfiles(req, res, next) {
 }
 
 // Get a teacher profile by ID
+async function getAllDetailTeacherProfile(req, res, next) {
+	try {
+		const teacherProfile =
+			await teacherProfileService.getAllDetailTeacherProfile();
+		return res.status(200).json(teacherProfile);
+	} catch (error) {
+		console.error("Error while getting all teacher profile:", error.message);
+		return res.status(500).json({ message: error.message });
+	}
+}
+
+// Get a teacher profile by ID
+async function getDetailTeacherProfileById(req, res, next) {
+	try {
+		const teacherProfileId = req.params.id;
+		const teacherProfile =
+			await teacherProfileService.getDetailTeacherProfileById(teacherProfileId);
+		return res.status(200).json(teacherProfile);
+	} catch (error) {
+		console.error("Error while getting detail teacher profile:", error.message);
+		return res.status(500).json({ message: error.message });
+	}
+}
+
+// Get a teacher profile by ID
 async function getTeacherProfileById(req, res, next) {
 	try {
 		const teacherProfileId = req.params.id;
@@ -72,4 +97,6 @@ module.exports = {
 	getTeacherProfileById,
 	updateTeacherProfile,
 	deleteTeacherProfile,
+	getAllDetailTeacherProfile,
+	getDetailTeacherProfileById,
 };
