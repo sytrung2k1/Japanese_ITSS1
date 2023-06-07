@@ -16,12 +16,10 @@ import {
   TARGET,
   LEVEL,
 } from "../../constants/common";
-import { teacherList } from "../../data/teacherList";
 
 const cx = classNames.bind(styles);
 
 function Search() {
-  // const [teachers, setTeachers] = useState(teacherList);
   const [teachers, setTeachers] = useState([]);
   const [teacherSearch, setTeacherSearch] = useState([]);
   const [selectedOption, setSelectedOption] = useState({
@@ -39,11 +37,11 @@ function Search() {
 
   const getTeachers = async () => {
     let res = await teacherApi.getTeachers();
-    console.log("res:", res);
+    // console.log("res:", res);
     setTeachers(res);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     console.log("value: ", selectedOption);
     const filters = selectedOption;
     const appliedFilters = _.pickBy(filters, (value) => value !== "");
@@ -52,70 +50,20 @@ function Search() {
       // no values selected, do not apply any filters
       setTeacherSearch(teachers);
     } else {
-      // filter data based on selected values
-      setTeacherSearch(teachers);
-      if (filters.age !== "") {
-        setTeacherSearch(
-          teachers?.filter(
-            (teacher) => teacher.age === Number(selectedOption.age)
-          )
-        );
-      }
-
-      if (filters.tution !== "") {
-        setTeacherSearch(
-          teachers?.filter(
-            (teacher) => teacher.tution === Number(selectedOption.tution)
-          )
-        );
-      }
-
-      if (filters.available_day !== "") {
-        setTeacherSearch(
-          teachers?.filter(
-            (teacher) =>
-              teacher.available_day === Number(selectedOption.available_day)
-          )
-        );
-      }
-      if (filters.level !== "") {
-        setTeacherSearch(
-          teachers?.filter(
-            (teacher) => teacher.level === Number(selectedOption.level)
-          )
-        );
-      }
-
-      if (filters.address !== "") {
-        setTeacherSearch(
-          teachers?.filter(
-            (teacher) => teacher.address === selectedOption.address
-          )
-        );
-      }
-      if (filters.sex !== "") {
-        setTeacherSearch(
-          teachers?.filter((teacher) => teacher.sex === selectedOption.sex)
-        );
-      }
-      if (filters.target_id !== "") {
-        setTeacherSearch(
-          teachers?.filter(
-            (teacher) => teacher.target_id === Number(selectedOption.target_id)
-          )
-        );
-      }
+      console.log("appliedFilters: ", appliedFilters);
+      let res = await teacherApi.searchTeacher(appliedFilters);
+      console.log("res1: ", res);
+      setTeacherSearch(res);
     }
-
-    // setTeacherSearch();
   };
+
   return (
     <>
       <div className={cx("content0")}>
         <div className={cx("content1")}>
           <p className={cx("tittle")}>自分を合う教師を探しましょう ~</p>
           <div className={cx("loc")}>
-            <div>
+            <div className={cx("filter")}>
               <select
                 name=""
                 className={cx("chung")}
@@ -138,7 +86,7 @@ function Search() {
                 <option value="8">日曜日</option>
               </select>
             </div>
-            <div>
+            <div className={cx("filter")}>
               <select name="" className={cx("chung")}>
                 <option value="" className={cx("option-header")}>
                   {TIME}
@@ -149,7 +97,7 @@ function Search() {
                 <option value="Night">夜</option>
               </select>
             </div>
-            <div>
+            <div className={cx("filter")}>
               <select
                 name=""
                 className={cx("chung")}
@@ -170,7 +118,7 @@ function Search() {
                 <option value="500">500円から</option>
               </select>
             </div>
-            <div>
+            <div className={cx("filter")}>
               <select
                 name=""
                 className={cx("chung")}
@@ -188,7 +136,7 @@ function Search() {
                 <option value="Ho Chi Minh">Ho Chi Minh</option>
               </select>
             </div>
-            <div>
+            <div className={cx("filter")}>
               <select
                 name=""
                 className={cx("chung")}
@@ -206,7 +154,7 @@ function Search() {
                 <option value="Famale">女の人</option>
               </select>
             </div>
-            <div>
+            <div className={cx("filter")}>
               <select
                 name=""
                 className={cx("chung")}
@@ -255,7 +203,7 @@ function Search() {
                 <option value="50">50</option>
               </select>
             </div>
-            <div>
+            <div className={cx("filter")}>
               <select
                 name=""
                 className={cx("chung")}
@@ -274,7 +222,7 @@ function Search() {
                 <option value="3">ベトナム語能力の試験</option>
               </select>
             </div>
-            <div>
+            <div className={cx("filter")}>
               <select
                 name=""
                 className={cx("chung")}

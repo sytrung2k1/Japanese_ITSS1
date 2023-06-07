@@ -5,19 +5,31 @@ import { teacherApi } from "../../../services/teacher-api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { profileTeacher } from "../../../data/profileTeacher";
+import { levels, days } from "../../../data/target";
 const cx = classNames.bind(styles);
 
 function Profile() {
   const params = useParams();
   const [teacher, setTeacher] = useState({});
+  const [resultLevel, setResultLevel] = useState([]);
+  const [resultDay, setResultDay] = useState([]);
 
   useEffect(() => {
     getTeacher();
   }, []);
 
+  useEffect(() => {
+    const level = levels.find((item) => item.id === teacher.level);
+    setResultLevel(level ? [level] : []);
+  }, [teacher.level]);
+
+  useEffect(() => {
+    const day = days.find((item) => item.id === teacher.available_day);
+    setResultDay(day ? [day] : []);
+  }, [teacher.available_day]);
+
   const getTeacher = async () => {
     let res = await teacherApi.getTeacher(params.id);
-    console.log("res:", res);
     setTeacher(res);
   };
 
@@ -53,7 +65,7 @@ function Profile() {
         </div>
         <div className={cx("profile-title")}>
           <h3 style={{ paddingRight: 58 }}>歳 :{teacher.age}</h3>
-          <h3>性別 :男</h3>
+          <h3>性別 :{teacher.sex === "Female" ? "女人" : "男人"}</h3>
         </div>
         <div className={cx("profile-title")}>
           <h3 style={{ paddingRight: 53 }}>メール</h3>
@@ -73,15 +85,17 @@ function Profile() {
         <p className={cx("p-profile")}>{profileTeacher.detailInfo}</p>
         <div className={cx("profile-info")}>
           <h3 className={cx("pd-r15")}>レベル</h3>
-          <p>{teacher.level}</p>
+          <p>{resultLevel[0] && <> {resultLevel[0].level_name}</>}</p>
         </div>
         <div className={cx("profile-info-mt10")}>
           <h3 className={cx("pd-r35")}>曜日</h3>
-          <p>{teacher.available_day}</p>
+          <p>{resultDay[0] && <> {resultDay[0].day_name}</>}</p>
         </div>
         <div className={cx("profile-info-mt10")}>
           <h3 className={cx("pd-r35")}>時間</h3>
-          <p>{teacher.time}</p>
+          {/* <p>{teacher.time}</p> */}
+          <p>朝</p>
+          
         </div>
         <div className={cx("profile-info-mt10")}>
           <h3 className={cx("pd-r35")}>場所</h3>
