@@ -9,33 +9,39 @@ import _ from "lodash";
 import {
   DAY,
   TIME,
-  SALARY,
+  TUTION,
   ADDRESS,
   GENDER,
   AGE,
-  PURPOSE,
-  LEVER,
+  TARGET,
+  LEVEL,
 } from "../../constants/common";
 import { teacherList } from "../../data/teacherList";
 
 const cx = classNames.bind(styles);
 
 function Search() {
-  const [teachers, setTeachers] = useState(teacherList);
+  // const [teachers, setTeachers] = useState(teacherList);
+  const [teachers, setTeachers] = useState([]);
   const [teacherSearch, setTeacherSearch] = useState([]);
   const [selectedOption, setSelectedOption] = useState({
-    salary: "",
+    tution: "",
     age: "",
+    available_day: "",
+    level: "",
+    address: "",
+    sex: "",
+    target_id: "",
   });
-  // useEffect(() => {
-  //   getTeachers();
-  // }, []);
+  useEffect(() => {
+    getTeachers();
+  }, []);
 
-  // const getTeachers = async () => {
-  //   let res = await teacherApi.getTeachers();
-  //   console.log("res:", res);
-  //   setTeachers(res);
-  // };
+  const getTeachers = async () => {
+    let res = await teacherApi.getTeachers();
+    console.log("res:", res);
+    setTeachers(res);
+  };
 
   const handleSearch = () => {
     console.log("value: ", selectedOption);
@@ -56,10 +62,46 @@ function Search() {
         );
       }
 
-      if (filters.salary !== "") {
+      if (filters.tution !== "") {
         setTeacherSearch(
           teachers?.filter(
-            (teacher) => teacher.salary === Number(selectedOption.salary)
+            (teacher) => teacher.tution === Number(selectedOption.tution)
+          )
+        );
+      }
+
+      if (filters.available_day !== "") {
+        setTeacherSearch(
+          teachers?.filter(
+            (teacher) =>
+              teacher.available_day === Number(selectedOption.available_day)
+          )
+        );
+      }
+      if (filters.level !== "") {
+        setTeacherSearch(
+          teachers?.filter(
+            (teacher) => teacher.level === Number(selectedOption.level)
+          )
+        );
+      }
+
+      if (filters.address !== "") {
+        setTeacherSearch(
+          teachers?.filter(
+            (teacher) => teacher.address === selectedOption.address
+          )
+        );
+      }
+      if (filters.sex !== "") {
+        setTeacherSearch(
+          teachers?.filter((teacher) => teacher.sex === selectedOption.sex)
+        );
+      }
+      if (filters.target_id !== "") {
+        setTeacherSearch(
+          teachers?.filter(
+            (teacher) => teacher.target_id === Number(selectedOption.target_id)
           )
         );
       }
@@ -74,20 +116,33 @@ function Search() {
           <p className={cx("tittle")}>自分を合う教師を探しましょう ~</p>
           <div className={cx("loc")}>
             <div>
-              <select name="" className={cx("chung")}>
-                <option value="">{DAY}</option>
-                <option value="Monday">月曜日</option>
-                <option value="tuesday">火曜日</option>
-                <option value="Wednesday">水曜日</option>
-                <option value="Thursday">木曜日</option>
-                <option value="Friday">金曜日</option>
-                <option value="Saturday">土曜日</option>
-                <option value="Sunday">日曜日</option>
+              <select
+                name=""
+                className={cx("chung")}
+                onChange={(e) => {
+                  setSelectedOption({
+                    ...selectedOption,
+                    available_day: e.target.value,
+                  });
+                }}
+              >
+                <option value="" className={cx("option-header")}>
+                  {DAY}
+                </option>
+                <option value="2">月曜日</option>
+                <option value="3">火曜日</option>
+                <option value="4">水曜日</option>
+                <option value="5">木曜日</option>
+                <option value="6">金曜日</option>
+                <option value="7">土曜日</option>
+                <option value="8">日曜日</option>
               </select>
             </div>
             <div>
               <select name="" className={cx("chung")}>
-                <option value="">{TIME}</option>
+                <option value="" className={cx("option-header")}>
+                  {TIME}
+                </option>
                 <option value="Morning">朝</option>
                 <option value="Noon">昼</option>
                 <option value="Evening">夕方</option>
@@ -101,11 +156,13 @@ function Search() {
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
-                    salary: e.target.value,
+                    tution: e.target.value,
                   });
                 }}
               >
-                <option value="">{SALARY} </option>
+                <option value="" className={cx("option-header")}>
+                  {TUTION}{" "}
+                </option>
                 <option value="100">100円から</option>
                 <option value="200">200円から</option>
                 <option value="300">300円から</option>
@@ -114,15 +171,37 @@ function Search() {
               </select>
             </div>
             <div>
-              <select name="" className={cx("chung")}>
-                <option value="">{ADDRESS}</option>
+              <select
+                name=""
+                className={cx("chung")}
+                onChange={(e) => {
+                  setSelectedOption({
+                    ...selectedOption,
+                    address: e.target.value,
+                  });
+                }}
+              >
+                <option value="" className={cx("option-header")}>
+                  {ADDRESS}
+                </option>
                 <option value="Ha Noi">Ha Noi</option>
                 <option value="Ho Chi Minh">Ho Chi Minh</option>
               </select>
             </div>
             <div>
-              <select name="" className={cx("chung")}>
-                <option value="">{GENDER}</option>
+              <select
+                name=""
+                className={cx("chung")}
+                onChange={(e) => {
+                  setSelectedOption({
+                    ...selectedOption,
+                    sex: e.target.value,
+                  });
+                }}
+              >
+                <option value="" className={cx("option-header")}>
+                  {GENDER}
+                </option>
                 <option value="Male">男の人</option>
                 <option value="Famale">女の人</option>
               </select>
@@ -138,7 +217,9 @@ function Search() {
                   });
                 }}
               >
-                <option value="">{AGE}</option>
+                <option value="" className={cx("option-header")}>
+                  {AGE}
+                </option>
                 <option value="18">18</option>
                 <option value="19">19</option>
                 <option value="20">20</option>
@@ -175,20 +256,42 @@ function Search() {
               </select>
             </div>
             <div>
-              <select name="" className={cx("chung")}>
-                <option value="">{PURPOSE}</option>
-                <option value="Communicate">日常会話</option>
-                <option value="Business">ビジネス</option>
-                <option value="Exam">ベトナム語能力の試験</option>
+              <select
+                name=""
+                className={cx("chung")}
+                onChange={(e) => {
+                  setSelectedOption({
+                    ...selectedOption,
+                    target_id: e.target.value,
+                  });
+                }}
+              >
+                <option value="" className={cx("option-header")}>
+                  {TARGET}
+                </option>
+                <option value="1">日常会話</option>
+                <option value="2">ビジネス</option>
+                <option value="3">ベトナム語能力の試験</option>
               </select>
             </div>
             <div>
-              <select name="" className={cx("chung")}>
-                <option value="">{LEVER}</option>
-                <option value="">ビギナー</option>
-                <option value="Beginner">初級</option>
-                <option value="Intermediate">中級</option>
-                <option value="Advanced">上級</option>
+              <select
+                name=""
+                className={cx("chung")}
+                onChange={(e) => {
+                  setSelectedOption({
+                    ...selectedOption,
+                    level: e.target.value,
+                  });
+                }}
+              >
+                <option value="" className={cx("option-header")}>
+                  {LEVEL}
+                </option>
+                <option value="1">ビギナー</option>
+                <option value="2">初級</option>
+                <option value="3">中級</option>
+                <option value="4">上級</option>
               </select>
             </div>
 

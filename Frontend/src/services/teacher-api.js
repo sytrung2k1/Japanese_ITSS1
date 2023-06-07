@@ -4,7 +4,7 @@ export const teacherApi = {
   getTeachers() {
     return axiosClient.get(`/teacher-profiles/`);
   },
-  getTeacher(id) {
-    return axiosClient.get(`/teacher-profiles/${id}`);
+  getTeacher(teacher_id) {
+    return axiosClient.get(`/teacher-profiles/details/${teacher_id}`);
   },
 };

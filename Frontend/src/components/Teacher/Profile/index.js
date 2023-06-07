@@ -9,17 +9,17 @@ const cx = classNames.bind(styles);
 
 function Profile() {
   const params = useParams();
+  const [teacher, setTeacher] = useState({});
 
-  const [teacher, setTeacher] = useState(profileTeacher);
-  // useEffect(() => {
-  //   getTeacher();
-  // }, []);
+  useEffect(() => {
+    getTeacher();
+  }, []);
 
-  // const getTeacher = async () => {
-  //   let res = await teacherApi.getTeacher(params.id);
-  //   console.log("res:", res);
-  //   setTeacher(res);
-  // };
+  const getTeacher = async () => {
+    let res = await teacherApi.getTeacher(params.id);
+    console.log("res:", res);
+    setTeacher(res);
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -47,7 +47,9 @@ function Profile() {
         </div>
         <div className={cx("profile-title")}>
           <h3 style={{ paddingRight: 70 }}>名前</h3>
-          <h3>: {teacher.name}</h3>
+          <h3>
+            : {teacher.first_name} {teacher.last_name}
+          </h3>
         </div>
         <div className={cx("profile-title")}>
           <h3 style={{ paddingRight: 58 }}>歳 :{teacher.age}</h3>
@@ -59,14 +61,14 @@ function Profile() {
         </div>
         <div className={cx("profile-title-phone")}>
           <h3 style={{ paddingRight: 60 }}>電話番号</h3>
-          <h3>:{teacher.phone}</h3>
+          <h3>:{teacher.phone_number}</h3>
         </div>
         <button className={cx("left-btn")}>仮申し込み</button>
       </div>
       <div className={cx("left")}>
         <div className={cx("header-profile")}>
           <h3 className={cx("profile-info")}>個人情報</h3>
-          <button className={cx("btn")}>編集</button>
+          {/* <button className={cx("btn")}>編集</button> */}
         </div>
         <p className={cx("p-profile")}>{profileTeacher.detailInfo}</p>
         <div className={cx("profile-info")}>
@@ -75,7 +77,7 @@ function Profile() {
         </div>
         <div className={cx("profile-info-mt10")}>
           <h3 className={cx("pd-r35")}>曜日</h3>
-          <p>{teacher.day}</p>
+          <p>{teacher.available_day}</p>
         </div>
         <div className={cx("profile-info-mt10")}>
           <h3 className={cx("pd-r35")}>時間</h3>
@@ -87,7 +89,7 @@ function Profile() {
         </div>
         <div className={cx("profile-info-mt10")}>
           <h3 className={cx("pd-r35")}>料金</h3>
-          <p>{teacher.salary}</p>
+          <p>{teacher.tution}</p>
         </div>
         <div className={cx("bottom-btn")}>
           <button className={cx("btn")}>評価を見る</button>
