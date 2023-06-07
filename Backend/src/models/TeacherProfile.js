@@ -128,6 +128,81 @@ async function getTeacherProfileById(teacherProfileId) {
 	}
 }
 
+async function filterDetailTeacherProfile(teacherProfileData) {
+	try {
+		let query = `SELECT
+		TeacherProfile.id,
+		TeacherProfile.teacher_id,
+		TeacherProfile.target_id,
+		TeacherProfile.mail,
+		TeacherProfile.phone_number,
+		TeacherProfile.experience,
+		TeacherProfile.level,
+		TeacherProfile.tution,
+		TeacherProfile.address,
+		TeacherProfile.available_day,
+		User.user_name,
+		User.first_name,
+		User.last_name,
+		User.sex,
+		User.age
+	FROM
+		TeacherProfile
+	JOIN
+		User ON TeacherProfile.teacher_id = User.id
+	WHERE 
+	`;
+		if (teacherProfileData.available_day !== undefined) {
+			query += ` TeacherProfile.available_day = ${teacherProfileData.available_day} AND `;
+		}
+
+		if (teacherProfileData.level !== undefined) {
+			query += ` TeacherProfile.level = ${teacherProfileData.level} AND`;
+		}
+
+		if (teacherProfileData.target_id !== undefined) {
+			query += ` TeacherProfile.target_id = ${teacherProfileData.target_id} AND`;
+		}
+
+		if (teacherProfileData.tution !== undefined) {
+			query += ` TeacherProfile.tution >= ${teacherProfileData.tution} AND`;
+		}
+		if (teacherProfileData.sex !== undefined) {
+			query += ` User.sex = '${teacherProfileData.sex}' AND `;
+		}
+
+		if (teacherProfileData.age !== undefined) {
+			query += ` User.age = ${teacherProfileData.age} AND `;
+		}
+
+		if (teacherProfileData.experience !== undefined) {
+			query += ` TeacherProfile.experience LIKE '%${teacherProfileData.experience}%' AND `;
+		}
+
+		if (teacherProfileData.address !== undefined) {
+			query += ` TeacherProfile.address LIKE '%${teacherProfileData.address}%' AND `;
+		}
+
+		if (teacherProfileData.phone_number !== undefined) {
+			query += ` TeacherProfile.phone_number LIKE '%${teacherProfileData.phone_number}%' AND `;
+		}
+
+		if (teacherProfileData.mail !== undefined) {
+			query += ` TeacherProfile.mail LIKE '%${teacherProfileData.mail}%' AND `;
+		}
+
+		query += ` 1 = 1 `;
+
+		// console.log(query);
+
+		const result = await db.query(query);
+		return result;
+	} catch (error) {
+		console.error("Error updating teacher profile:", error);
+		throw error;
+	}
+}
+
 // Update a teacher profile
 async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
 	try {
@@ -180,4 +255,5 @@ module.exports = {
 	deleteTeacherProfile,
 	getAllDetailTeacherProfile,
 	getDetailTeacherProfileById,
+	filterDetailTeacherProfile,
 };
