@@ -77,6 +77,20 @@ async function updateTeacherProfile(req, res, next) {
 	}
 }
 
+// Update a teacher profile
+async function filterDetailTeacherProfile(req, res, next) {
+	try {
+		const teacherProfileData = req.body;
+		const result = await teacherProfileService.filterDetailTeacherProfile(
+			teacherProfileData
+		);
+		return res.status(200).json(result);
+	} catch (error) {
+		console.error("Error while updating teacher profile:", error.message);
+		return res.status(500).json({ message: error.message });
+	}
+}
+
 // Delete a teacher profile
 async function deleteTeacherProfile(req, res, next) {
 	try {
@@ -99,4 +113,5 @@ module.exports = {
 	deleteTeacherProfile,
 	getAllDetailTeacherProfile,
 	getDetailTeacherProfileById,
+	filterDetailTeacherProfile,
 };

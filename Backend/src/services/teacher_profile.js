@@ -67,6 +67,21 @@ async function getTeacherProfileById(teacherProfileId) {
 	}
 }
 
+async function filterDetailTeacherProfile(teacherProfileData) {
+	try {
+		const teacherProfile = await TeacherProfile.filterDetailTeacherProfile(
+			teacherProfileData
+		);
+		if (!teacherProfile) {
+			throw new Error("Teacher profile not found");
+		}
+		return teacherProfile;
+	} catch (error) {
+		console.error("Error getting teacher profile:", error);
+		throw error;
+	}
+}
+
 // Update a teacher profile
 async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
 	try {
@@ -108,4 +123,5 @@ module.exports = {
 	deleteTeacherProfile,
 	getAllDetailTeacherProfile,
 	getDetailTeacherProfileById,
+	filterDetailTeacherProfile,
 };

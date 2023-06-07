@@ -19,6 +19,9 @@ router.get(
 	teacherProfileController.getDetailTeacherProfileById
 );
 
+// Filter teacher profile by
+router.post("/details", teacherProfileController.filterDetailTeacherProfile);
+
 // Get a teacher profile by ID
 router.get("/:id", teacherProfileController.getTeacherProfileById);
 
