@@ -61,7 +61,7 @@ function Search() {
     <>
       <div className={cx("content0")}>
         <div className={cx("content1")}>
-          <p className={cx("tittle")}>自分を合う教師を探しましょう ~</p>
+          <p className={cx("tittle")}>自分に合う教師を探しましょう ~</p>
           <div className={cx("loc")}>
             <div className={cx("filter")}>
               <select
@@ -267,6 +267,16 @@ function Search() {
             <div>
               <Button
                 variant="contained"
+                sx={{
+                  backgroundColor: "#DBDAD8",
+                  color: "#333",
+                  fontSize: 40,
+                  height: 40,
+                  marginRight: 16,
+                  "&:hover": {
+                    backgroundColor: "#a09597",
+                  },
+                }}
                 startIcon={<SearchIcon />}
                 size="large"
                 onClick={handleSearch}

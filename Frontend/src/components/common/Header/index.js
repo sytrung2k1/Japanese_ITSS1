@@ -9,7 +9,7 @@ function Header() {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
-        <div className={cx("logo")}>Vlean</div>
+        <div className={cx("logo")}>Vlearn</div>
         <div className={cx("option")}>
           <NotificationsNoneIcon sx={{ fontSize: 40 }} />
           <Avatar
