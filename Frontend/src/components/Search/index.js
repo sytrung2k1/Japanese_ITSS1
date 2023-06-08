@@ -66,7 +66,10 @@ function Search() {
             <div className={cx("filter")}>
               <select
                 name=""
-                className={cx("chung")}
+                className={cx(
+                  "chung",
+                  selectedOption.available_day !== "" ? "check" : "notcheck"
+                )}
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
@@ -100,7 +103,10 @@ function Search() {
             <div className={cx("filter")}>
               <select
                 name=""
-                className={cx("chung")}
+                className={cx(
+                  "chung",
+                  selectedOption.tution !== "" ? "check" : "notcheck"
+                )}
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
@@ -121,7 +127,10 @@ function Search() {
             <div className={cx("filter")}>
               <select
                 name=""
-                className={cx("chung")}
+                className={cx(
+                  "chung",
+                  selectedOption.address !== "" ? "check" : "notcheck"
+                )}
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
@@ -139,7 +148,10 @@ function Search() {
             <div className={cx("filter")}>
               <select
                 name=""
-                className={cx("chung")}
+                className={cx(
+                  "chung",
+                  selectedOption.sex !== "" ? "check" : "notcheck"
+                )}
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
@@ -157,7 +169,10 @@ function Search() {
             <div className={cx("filter")}>
               <select
                 name=""
-                className={cx("chung")}
+                className={cx(
+                  "chung",
+                  selectedOption.age !== "" ? "check" : "notcheck"
+                )}
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
@@ -206,7 +221,10 @@ function Search() {
             <div className={cx("filter")}>
               <select
                 name=""
-                className={cx("chung")}
+                className={cx(
+                  "chung",
+                  selectedOption.target_id !== "" ? "check" : "notcheck"
+                )}
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
@@ -225,7 +243,10 @@ function Search() {
             <div className={cx("filter")}>
               <select
                 name=""
-                className={cx("chung")}
+                className={cx(
+                  "chung",
+                  selectedOption.level !== "" ? "check" : "notcheck"
+                )}
                 onChange={(e) => {
                   setSelectedOption({
                     ...selectedOption,
