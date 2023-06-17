@@ -1,6 +1,5 @@
 import Login from "./pages/Login";
 import HomeSearch from "./pages/HomeSearch";
-import Feedback from "./pages/Student/Feedback";
 import BookmarkList from "./pages/Student/BookmarkList";
 import StudentList from "./pages/Teacher/StudentList";
 import UserList from "./components/Admin/UserList";
@@ -26,8 +25,7 @@ function App() {
         <Route path="/home" element={<HomeSearch />} />
         {/* 4 Tú*/}
         <Route path="/profile/:id" element={<TeacherProfile />} />
-        {/* 6 Ánh*/}
-        <Route path="/student/feedback" element={<Feedback />} />
+
         {/* 7 Trưởng */}
         <Route path="/student/bookmark" element={<BookmarkList />} />
         {/* 8 Tú*/}
