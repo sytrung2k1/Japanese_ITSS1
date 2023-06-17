@@ -19,7 +19,7 @@ section .content .form {
   padding: 40px;
   margin: 5%;
   background-color: #d9d9d9;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 section .content .form .input-form {
   margin-bottom: 5px;
@@ -88,44 +88,4 @@ section .content .form h2 {
   text-align: center;
   background-color: #d9d9d9;
 }
-@media (min-width: 680px) and (max-width: 1120px) {
-  section .content {
-    z-index: 1;
-  }
-  section {
-    margin-top: 80px;
-    height: 60vh;
-  }
-  section .content .form {
-    padding: 25px;
-  }
-  section .content .form .input-form input {
-    padding: 5px 20px;
-  }
-}
 
-@media screen and (max-width: 680px) {
-  section {
-    margin-top: 130px;
-    height: 40vh;
-  }
-  section .content .form {
-    padding: 18px;
-  }
-  section .content .form .input-form input {
-    padding: 3px 20px;
-  }
-  section .content .form h2 {
-    font-size: 1em;
-  }
-  .input-form label {
-    font-size: 0.7em;
-  }
-  section .content .form .input-form .doituong {
-    font-size: 10px;
-  }
-  section .content .form .input-form input[type="submit"] {
-    height: 20px;
-    font-size: 10px;
-  }
-}

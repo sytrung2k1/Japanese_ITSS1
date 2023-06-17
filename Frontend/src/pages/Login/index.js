@@ -34,11 +34,9 @@ function Login() {
           response.roleId,
           response.user_id
         );
-        if (response.roleId === 1) {
-          navigate("/admin/manager"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
-        } else {
-          navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
-        }
+
+        navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+
         toast.success("Đăng nhập thành công");
       } else {
         if (response && response.status === 500) {
@@ -56,14 +54,17 @@ function Login() {
     }
   };
   return (
-    <div className={cx("app")}>
-      <h1 className={cx("header")}>Login</h1>
+    <div className={cx("wrapper")}>
       <div className={cx("form")}>
+        <h1 className={cx("header")} style={{ fontWeight: 600, fontSize: 48 }}>
+          ログイン
+        </h1>
         <form onSubmit={handleLogin}>
           <div className={cx("input-container")}>
-            <label>User_name: </label>
+            <label style={{ fontSize: 20 }}>ユーザー名 </label>
             <input
               type="text"
+              className={cx("input")}
               required
               value={user_name}
               onChange={(e) => setUser_name(e.target.value)}
@@ -71,21 +72,27 @@ function Login() {
           </div>
 
           <div className={cx("input-container")}>
-            <label>Password: </label>
+            <label style={{ fontSize: 20 }}>パスワード </label>
             <input
               type="password"
+              className={cx("input")}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
 
-          <div className={cx("button-container")}>
-            <input type="submit" />
+          <div>
+            <input
+              className={cx("input-form")}
+              type="submit"
+              value="ログイン"
+            />
           </div>
         </form>
+
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
   );
 }

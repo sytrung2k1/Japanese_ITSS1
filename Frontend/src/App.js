@@ -16,6 +16,8 @@ import { UserContext } from "./contexts/UserContext";
 
 function App() {
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
   const { user, loginContext } = useContext(UserContext);
   console.log("<<< user :", user);
   console.log("<<< token :", token);
@@ -39,18 +41,7 @@ function App() {
         {/* 3 Quỳnh*/}
         <Route path="/home" element={<HomeSearch />} />
         {/* 4 Tú*/}
-        <Route
-          path="/info/:id"
-          element={
-            token && user.role === 2 ? (
-              <TeacherProfile />
-            ) : (
-              <h1>
-                Ban khong the truy cap. Hay dang nhap voi vai tro la hoc sinh !
-              </h1>
-            )
-          }
-        />
+        <Route path="/info/:id" element={<TeacherProfile />} />
         {/*  */}
         <Route path="/profile" element={<TeacherProfile />} />
         {/* 7 Trưởng */}
@@ -61,9 +52,7 @@ function App() {
         {/* <PrivateRoute path="/admin/manager" element={<UserList />} /> */}
         <Route
           path="/admin/manager"
-          element={
-            token && user.role === 1 ? <UserList /> : <Navigate to="/login" />
-          }
+          element={token ? <UserList /> : <h1>Không thể truy cập</h1>}
         />
       </Routes>
     </Router>
