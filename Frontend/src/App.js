@@ -11,9 +11,14 @@ import {
 } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import TeacherProfile from "./pages/Teacher/TeacherProfile";
+import { useContext } from "react";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
   const token = localStorage.getItem("token");
+  const { user } = useContext(UserContext);
+  console.log("<<< user :", user);
+  console.log("<<< token :", token);
   return (
     <Router>
       <Routes>
