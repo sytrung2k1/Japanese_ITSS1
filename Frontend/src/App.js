@@ -11,14 +11,24 @@ import {
 } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import TeacherProfile from "./pages/Teacher/TeacherProfile";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "./contexts/UserContext";
 
 function App() {
   const token = localStorage.getItem("token");
-  const { user } = useContext(UserContext);
+  const { user, loginContext } = useContext(UserContext);
   console.log("<<< user :", user);
   console.log("<<< token :", token);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      loginContext(
+        localStorage.getItem("username"),
+        localStorage.getItem("token"),
+        localStorage.getItem("role"),
+        localStorage.getItem("id")
+      );
+    }
+  }, []);
   return (
     <Router>
       <Routes>
@@ -29,8 +39,20 @@ function App() {
         {/* 3 Quỳnh*/}
         <Route path="/home" element={<HomeSearch />} />
         {/* 4 Tú*/}
-        <Route path="/profile/:id" element={<TeacherProfile />} />
-
+        <Route
+          path="/info/:id"
+          element={
+            token && user.role === 2 ? (
+              <TeacherProfile />
+            ) : (
+              <h1>
+                Ban khong the truy cap. Hay dang nhap voi vai tro la hoc sinh !
+              </h1>
+            )
+          }
+        />
+        {/*  */}
+        <Route path="/profile" element={<TeacherProfile />} />
         {/* 7 Trưởng */}
         <Route path="/student/bookmark" element={<BookmarkList />} />
         {/* 8 Tú*/}
@@ -39,7 +61,9 @@ function App() {
         {/* <PrivateRoute path="/admin/manager" element={<UserList />} /> */}
         <Route
           path="/admin/manager"
-          element={token ? <UserList /> : <Navigate to="/login" />}
+          element={
+            token && user.role === 1 ? <UserList /> : <Navigate to="/login" />
+          }
         />
       </Routes>
     </Router>

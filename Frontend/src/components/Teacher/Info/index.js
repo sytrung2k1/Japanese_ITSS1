@@ -9,7 +9,7 @@ function Info({ teacher }) {
   const navigate = useNavigate();
   const handleDetailInfo = (event) => {
     event.preventDefault();
-    navigate(`/profile/${teacher.teacher_id}`);
+    navigate(`/info/${teacher.teacher_id}`);
   };
   return (
     <div className={cx("giaovien")}>

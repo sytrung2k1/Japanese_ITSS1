@@ -28,9 +28,18 @@ function Login() {
       let response = await authApi.login(user_name, password);
       console.log("res: ", response);
       if (response && response.TokenId) {
-        loginContext(user_name, response.TokenId);
-        navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
-        alert("Đăng nhập thành công"); // Đăng nhập thành công, xử lý logic sau khi đăng nhập
+        loginContext(
+          user_name,
+          response.TokenId,
+          response.roleId,
+          response.user_id
+        );
+        if (response.roleId === 1) {
+          navigate("/admin/manager"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+        } else {
+          navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+        }
+        toast.success("Đăng nhập thành công");
       } else {
         if (response && response.status === 500) {
           toast.error(response.data.message);

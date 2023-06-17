@@ -6,11 +6,13 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { NavDropdown } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../contexts/UserContext";
+
 const cx = classNames.bind(styles);
 
 function Header() {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const { user, logout } = useContext(UserContext);
 
@@ -26,6 +28,7 @@ function Header() {
         <div className={cx("logo")}>Vlearn</div>
         <div className={cx("option")}>
           <NotificationsNoneIcon sx={{ fontSize: 40 }} />
+          {token && user.name && <h4>{user.name}</h4>}
           <Avatar
             alt="Remy Sharp"
             src="https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645.jpg"
