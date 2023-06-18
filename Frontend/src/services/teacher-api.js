@@ -10,4 +10,7 @@ export const teacherApi = {
   searchTeacher(appliedFilters) {
     return axiosClient.post(`/teacher-profiles/details/`, appliedFilters);
   },
+  updateProfile(id, info) {
+    return axiosClient.post(`/teacher-profiles/details/${id}`, info);
+  },
 };

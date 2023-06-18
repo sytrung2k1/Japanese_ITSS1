@@ -1,15 +1,14 @@
 import classNames from "classnames/bind";
-import styles from "./Profile.module.scss";
+import styles from "./ProfileSetting.module.scss";
 import { useEffect, useState } from "react";
 import { levels, days } from "../../../data/target";
 import { teacherApi } from "../../../services/teacher-api";
 import { FaStar } from "react-icons/fa";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const cx = classNames.bind(styles);
 
-function Profile() {
+function ProfileSetting() {
   const [teacher, setTeacher] = useState({});
   const [resultLevel, setResultLevel] = useState([]);
   const [resultDay, setResultDay] = useState([]);
@@ -61,20 +60,24 @@ function Profile() {
           <div className={cx("profile-title")}>
             <h3 style={{ paddingRight: 70 }}>名前</h3>
             <h3>
-              : {teacher.first_name} {teacher.last_name}
+              :
+              <input type="text" required value={teacher.last_name} />
+              <input type="text" required value={teacher.first_name} />
             </h3>
           </div>
           <div className={cx("profile-title")}>
-            <h3 style={{ paddingRight: 58 }}>歳 :{teacher.age}</h3>
+            <h3 style={{ paddingRight: 58 }}>
+              歳 :<input type="text" required value={teacher.age} />
+            </h3>
             <h3>性別 :{teacher.sex === "Female" ? "女人" : "男人"}</h3>
           </div>
           <div className={cx("profile-title")}>
             <h3 style={{ paddingRight: 53 }}>メール</h3>
-            <h3>:{teacher.mail}</h3>
+            <input type="text" required value={teacher.mail} />
           </div>
           <div className={cx("profile-title-phone")}>
             <h3 style={{ paddingRight: 60 }}>電話番号</h3>
-            <h3>:{teacher.phone_number}</h3>
+            <input type="text" required value={teacher.phone_number} />
           </div>
           <button className={cx("left-btn")}>仮申し込み</button>
         </div>
@@ -104,19 +107,16 @@ function Profile() {
           </div>
           <div className={cx("profile-info-mt10")}>
             <h3 className={cx("pd-r35")}>場所</h3>
-            <p>{teacher.address}</p>
+            <input type="text" required value={teacher.address} />
           </div>
           <div className={cx("profile-info-mt10")}>
             <h3 className={cx("pd-r35")}>料金</h3>
             <p>{teacher.tution}</p>
           </div>
-
-          <Link to="/profile/setting">
-            <Button variant="contained">Setting</Button>
-          </Link>
+          <Button variant="success">Save</Button>
         </div>
       </div>
     </>
   );
 }
-export default Profile;
+export default ProfileSetting;

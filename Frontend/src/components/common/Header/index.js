@@ -27,7 +27,7 @@ function Header() {
         <div className={cx("logo")}>Vlearn</div>
         <div className={cx("option")}>
           <NotificationsNoneIcon sx={{ fontSize: 40 }} />
-          {token && user.name && <h4>{user.name}</h4>}
+          {/* {token && user.name && <h4>{user.name}</h4>} */}
           <Avatar
             alt="Remy Sharp"
             src="https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645.jpg"
@@ -35,14 +35,18 @@ function Header() {
           />
 
           <NavDropdown title="">
-            <NavDropdown.Item href="/login">
-              <NavLink to="/login" className="nav-link">
-                Login
-              </NavLink>
-            </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleLogout()}>
-              Logout
-            </NavDropdown.Item>
+            {!token && (
+              <NavDropdown.Item href="/login">
+                <NavLink to="/login" className="nav-link">
+                  Login
+                </NavLink>
+              </NavDropdown.Item>
+            )}
+            {token && (
+              <NavDropdown.Item onClick={() => handleLogout()}>
+                Logout
+              </NavDropdown.Item>
+            )}
           </NavDropdown>
         </div>
       </div>

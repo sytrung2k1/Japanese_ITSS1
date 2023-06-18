@@ -1,9 +1,10 @@
 import classNames from "classnames/bind";
 import styles from "./UserList.module.scss";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { userApi } from "../../../services/user-api";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../../contexts/UserContext";
 
 const cx = classNames.bind(styles);
 
@@ -12,6 +13,8 @@ function UserList() {
   const [users, setUsers] = useState([]);
   const itemsPerPage = 2; // Number of items per page
   const [currentPage, setCurrentPage] = useState(0); // Current active page
+  const { logout } = useContext(UserContext);
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -29,8 +32,7 @@ function UserList() {
   };
 
   const hanldLogout = () => {
-    localStorage.removeItem("token");
-
+    logout();
     return navigate("/login");
   };
 
@@ -70,13 +72,13 @@ function UserList() {
               <td>{user.role}</td>
               <td>{user.phone}</td>
               <td>
-                <a href="#">
+                {/* <a href="#">
                   <img
                     src="/icons/trash-icon.png"
                     alt="Trash Icon"
                     className={cx("icons")}
                   />
-                </a>
+                </a> */}
               </td>
             </tr>
           ))}

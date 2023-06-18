@@ -2,7 +2,6 @@ import Login from "./pages/Login";
 import HomeSearch from "./pages/HomeSearch";
 import BookmarkList from "./pages/Student/BookmarkList";
 import StudentList from "./pages/Teacher/StudentList";
-import UserList from "./components/Admin/UserList";
 import {
   BrowserRouter as Router,
   Route,
@@ -10,9 +9,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import SignUp from "./pages/SignUp";
-import TeacherProfile from "./pages/Teacher/TeacherProfile";
+import TeacherInfo from "./pages/Teacher/TeacherInfo";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./contexts/UserContext";
+import ManagerUser from "./pages/Admin/ManagerUser";
+import TeacherProfile from "./pages/Teacher/TeacherProfile";
+import TeacherProfileSetting from "./pages/Teacher/TeacherProfileSetting";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -26,8 +28,8 @@ function App() {
       loginContext(
         localStorage.getItem("username"),
         localStorage.getItem("token"),
-        localStorage.getItem("role"),
-        localStorage.getItem("id")
+        parseInt(localStorage.getItem("role")),
+        parseInt(localStorage.getItem("id"))
       );
     }
   }, []);
@@ -41,9 +43,38 @@ function App() {
         {/* 3 Quỳnh*/}
         <Route path="/home" element={<HomeSearch />} />
         {/* 4 Tú*/}
-        <Route path="/info/:id" element={<TeacherProfile />} />
+        <Route
+          path="/info/:id"
+          element={
+            role === "2" ? (
+              <TeacherInfo />
+            ) : (
+              <h1>Khong the truy cap hay dang nhap voi vai tro la hoc sinh</h1>
+            )
+          }
+        />
         {/*  */}
-        <Route path="/profile" element={<TeacherProfile />} />
+        <Route
+          path="/profile"
+          element={
+            role === "3" ? (
+              <TeacherProfile />
+            ) : (
+              <h1>Khong the truy cap hay dang nhap voi vai tro la giao vien</h1>
+            )
+          }
+        />
+
+        <Route
+          path="/profile/setting"
+          element={
+            role === "3" ? (
+              <TeacherProfileSetting />
+            ) : (
+              <h1>Khong the truy cap hay dang nhap voi vai tro la giao vien</h1>
+            )
+          }
+        />
         {/* 7 Trưởng */}
         <Route path="/student/bookmark" element={<BookmarkList />} />
         {/* 8 Tú*/}
@@ -52,7 +83,7 @@ function App() {
         {/* <PrivateRoute path="/admin/manager" element={<UserList />} /> */}
         <Route
           path="/admin/manager"
-          element={token ? <UserList /> : <h1>Không thể truy cập</h1>}
+          element={role === "1" ? <ManagerUser /> : <h1>Không thể truy cập</h1>}
         />
       </Routes>
     </Router>

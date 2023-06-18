@@ -34,8 +34,11 @@ function Login() {
           response.roleId,
           response.user_id
         );
-
-        navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+        if (response.roleId === 1) {
+          navigate("/admin/manager"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+        } else {
+          navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+        }
 
         toast.success("Đăng nhập thành công");
       } else {

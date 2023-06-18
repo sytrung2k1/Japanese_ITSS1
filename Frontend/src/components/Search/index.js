@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import styles from "./Search.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { teacherApi } from "../../services/teacher-api";
-import Info from "../Teacher/Info";
+import ItemInfo from "../Teacher/ItemInfo";
 import _ from "lodash";
 import {
   DAY,
@@ -39,6 +39,7 @@ function Search() {
     let res = await teacherApi.getTeachers();
     // console.log("res:", res);
     setTeachers(res);
+    setTeacherSearch(res);
   };
 
   const handleSearch = async () => {
@@ -286,7 +287,7 @@ function Search() {
         </div>
         <div className={cx("content2")}>
           {teacherSearch.map((teacher, i) => (
-            <Info key={i} teacher={teacher} />
+            <ItemInfo key={i} teacher={teacher} />
           ))}
         </div>
       </div>
