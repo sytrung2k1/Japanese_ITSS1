@@ -182,6 +182,8 @@ async function login(user_name, password) {
 			user_id: user.id,
 			user_name: user.user_name,
 			roleId: user.roleId,
+			first_name: user.first_name,
+			last_name: user.last_name,
 		};
 		const token = jwt.sign(payload, config.jwtSecret, {
 			expiresIn: "1h",
