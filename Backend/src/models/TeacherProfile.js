@@ -3,7 +3,7 @@ const db = require("../services/db");
 // Create a teacher profile
 async function createTeacherProfile(teacherProfileData) {
 	const query = `INSERT INTO TeacherProfile 
-    (teacher_id, target_id, mail, phone_number, experience, level, tution, address, available_day, bio, date)
+    (teacher_id, target_id, mail, phone_number, experience, level, tution, address, available_day, bio, available_time)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 	const values = [
 		teacherProfileData.teacher_id,
@@ -16,7 +16,7 @@ async function createTeacherProfile(teacherProfileData) {
 		teacherProfileData.address,
 		teacherProfileData.available_day,
 		teacherProfileData.bio,
-		teacherProfileData.date,
+		teacherProfileData.available_time,
 	];
 
 	try {
@@ -55,7 +55,7 @@ async function getAllDetailTeacherProfile() {
   TeacherProfile.address,
   TeacherProfile.available_day,
 	TeacherProfile.bio,
-	TeacherProfile.date,
+	TeacherProfile.available_time,
   User.user_name,
   User.first_name,
   User.last_name,
@@ -90,7 +90,7 @@ async function getDetailTeacherProfileById(teacherProfileId) {
   TeacherProfile.address,
   TeacherProfile.available_day,
 	TeacherProfile.bio,
-	TeacherProfile.date,
+	TeacherProfile.available_time,
   User.user_name,
   User.first_name,
   User.last_name,
@@ -148,7 +148,7 @@ async function filterDetailTeacherProfile(teacherProfileData) {
 		TeacherProfile.address,
 		TeacherProfile.available_day,
 		TeacherProfile.bio,
-		TeacherProfile.date,
+		TeacherProfile.available_time,
 		User.user_name,
 		User.first_name,
 		User.last_name,
@@ -203,8 +203,8 @@ async function filterDetailTeacherProfile(teacherProfileData) {
 			query += ` TeacherProfile.bio LIKE '%${teacherProfileData.bio}%' AND `;
 		}
 
-		if (teacherProfileData.date !== undefined) {
-			query += ` TeacherProfile.date LIKE '%${teacherProfileData.date}%' AND `;
+		if (teacherProfileData.available_time !== undefined) {
+			query += ` TeacherProfile.available_time LIKE '%${teacherProfileData.available_time}%' AND `;
 		}
 
 		query += ` 1 = 1 `;
@@ -224,7 +224,7 @@ async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
 	try {
 		const query = `UPDATE TeacherProfile SET 
     teacher_id = ?, target_id = ?, mail = ?, phone_number = ?, 
-    experience = ?, level = ?, tution = ?, address = ?, available_day = ?, bio = ?, date = ?
+    experience = ?, level = ?, tution = ?, address = ?, available_day = ?, bio = ?, available_time = ?
     WHERE id = ?`;
 
 		const data = await getTeacherProfileById(teacherProfileId);
@@ -239,7 +239,7 @@ async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
 			teacherProfileData.address || data.address,
 			teacherProfileData.available_day || data.available_day,
 			teacherProfileData.bio || data.bio,
-			teacherProfileData.date || data.date,
+			teacherProfileData.available_time || data.available_time,
 			teacherProfileId,
 		];
 

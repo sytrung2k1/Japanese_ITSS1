@@ -27,10 +27,10 @@ router.get("/", async (req, res, next) => {
 });
 
 // Read a bookmark by ID
-router.get("/:id", async (req, res, next) => {
+router.get("/search", async (req, res, next) => {
 	try {
-		const bookmarkId = req.params.id;
-		const result = await bookmarkController.getBookmarkById(bookmarkId);
+		const body = req.body;
+		const result = await bookmarkController.getBookmarkById(body);
 		return res.status(200).json(result);
 	} catch (error) {
 		console.error("Error while getting bookmark:", error.message);
@@ -39,13 +39,9 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Update a bookmark by ID
-router.put("/:id", async (req, res, next) => {
+router.put("/update", async (req, res, next) => {
 	try {
-		const bookmarkId = req.params.id;
-		const result = await bookmarkController.updateBookmark(
-			bookmarkId,
-			req.body
-		);
+		const result = await bookmarkController.updateBookmark(req.body);
 		return res.status(200).json(result);
 	} catch (error) {
 		console.error("Error while updating bookmark:", error.message);
@@ -54,10 +50,9 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // Delete a bookmark by ID
-router.delete("/:id", async (req, res, next) => {
+router.delete("/delete", async (req, res, next) => {
 	try {
-		const bookmarkId = req.params.id;
-		const result = await bookmarkController.deleteBookmark(bookmarkId);
+		const result = await bookmarkController.deleteBookmark(req.body);
 		return res.status(200).json(result);
 	} catch (error) {
 		console.error("Error while deleting bookmark:", error.message);

@@ -36,9 +36,9 @@ async function getBookmarkById(bookmarkId) {
 }
 
 // Update a bookmark by ID
-async function updateBookmark(bookmarkId, data) {
+async function updateBookmark(data) {
 	try {
-		const result = await bookmarkModel.updateBookmark(bookmarkId, data);
+		const result = await bookmarkModel.updateBookmark(data);
 		return result;
 	} catch (error) {
 		console.error("Error while updating bookmark:", error.message);
