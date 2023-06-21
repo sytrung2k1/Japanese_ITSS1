@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import { useEffect, useState } from "react";
-import { levels, days } from "../../../data/target";
+import { levels, days, times } from "../../../data/target";
 import { teacherApi } from "../../../services/teacher-api";
 import { FaStar } from "react-icons/fa";
 import { feedbackApi } from "../../../services/feedback-api";
@@ -30,6 +30,8 @@ function Profile() {
   const [feedbacks, setFeedbacks] = useState({});
   const [resultLevel, setResultLevel] = useState([]);
   const [resultDay, setResultDay] = useState([]);
+  const [resultTime, setResultTime] = useState([]);
+
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -46,6 +48,10 @@ function Profile() {
     setResultDay(day ? [day] : []);
   }, [teacher.available_day]);
 
+  useEffect(() => {
+    const time = times.find((item) => item.id === teacher.available_time);
+    setResultTime(time ? [time] : []);
+  }, [teacher.available_time]);
   const getTeacher = async () => {
     let res = await teacherApi.getTeacher(localStorage.getItem("id"));
     console.log("profile: ", res);
@@ -94,12 +100,12 @@ function Profile() {
           <div className={cx("profile-title")}>
             <h4 style={{ paddingRight: 70 }}>名前</h4>
             <h4>
-              : {teacher.first_name} {teacher.last_name}
+              : {teacher.last_name} {teacher.first_name}
             </h4>
           </div>
           <div className={cx("profile-title")}>
             <h4 style={{ paddingRight: 58 }}>歳 :{teacher.age}</h4>
-            <h4>性別 :{teacher.sex === "Female" ? "女人" : "男人"}</h4>
+            <h4>性別 : {teacher.sex === "Male" ? "男の人" : "女の人"}</h4>
           </div>
           <div className={cx("profile-title")}>
             <h4 style={{ paddingRight: 45 }}>メール</h4>
@@ -129,7 +135,7 @@ function Profile() {
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>時間</h4>
             {/* <p>{teacher.time}</p> */}
-            <p>朝</p>
+            <p>{resultTime[0] && <> {resultTime[0].time_name}</>}</p>
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>場所</h4>
@@ -137,7 +143,7 @@ function Profile() {
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>料金</h4>
-            <p>{teacher.tution}</p>
+            <p>{teacher.tution} 円</p>
           </div>
           <div className={cx("bottom-btn")}>
             <button className={cx("btn")} onClick={handleOpen}>

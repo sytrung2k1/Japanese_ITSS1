@@ -43,7 +43,26 @@ export const days = [
     day_name: "土曜日",
   },
   {
-    id: 1,
+    id: 8,
     day_name: "日曜日",
+  },
+];
+
+export const times = [
+  {
+    id: "Morning",
+    time_name: "朝",
+  },
+  {
+    id: "Noon",
+    time_name: "昼",
+  },
+  {
+    id: "Evening",
+    time_name: "夕方",
+  },
+  {
+    id: "Night",
+    time_name: "夜",
   },
 ];

@@ -1,20 +1,23 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileSetting.module.scss";
 import { useEffect, useState } from "react";
-import { levels, days } from "../../../data/target";
+import { levels, days, times } from "../../../data/target";
 import { teacherApi } from "../../../services/teacher-api";
 import { FaStar } from "react-icons/fa";
 import { profileTeacher } from "../../../data/profileTeacher";
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { userApi } from "../../../services/user-api";
 
 const cx = classNames.bind(styles);
 
 function ProfileSetting() {
   const [teacher, setTeacher] = useState({});
+  const [profile, setProfile] = useState({});
   const [resultLevel, setResultLevel] = useState([]);
   const [resultDay, setResultDay] = useState([]);
+  const [resultTime, setResultTime] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     getTeacher();
@@ -30,6 +33,11 @@ function ProfileSetting() {
     setResultDay(day ? [day] : []);
   }, [teacher.available_day]);
 
+  useEffect(() => {
+    const time = times.find((item) => item.id === teacher.available_time);
+    setResultTime(time ? [time] : []);
+  }, [teacher.available_time]);
+
   const getTeacher = async () => {
     let res = await teacherApi.getTeacher(localStorage.getItem("id"));
     console.log("profile: ", res);
@@ -38,6 +46,7 @@ function ProfileSetting() {
   const handleSubmitUpdate = async (e) => {
     e.preventDefault();
     let res = await teacherApi.updateProfile(teacher.id, teacher);
+    let res2 = await userApi.updateUser(teacher.teacher_id, profile);
     navigate("/profile"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
     toast.success("Update thành công !");
   };
@@ -74,10 +83,18 @@ function ProfileSetting() {
               :{" "}
               <input
                 value={teacher.last_name}
+                onChange={(e) => {
+                  setTeacher({ ...teacher, last_name: e.target.value });
+                  setProfile({ ...profile, last_name: e.target.value });
+                }}
                 style={{ width: 100, padding: "1px 4px", fontSize: 20 }}
               />{" "}
               <input
                 value={teacher.first_name}
+                onChange={(e) => {
+                  setTeacher({ ...teacher, first_name: e.target.value });
+                  setProfile({ ...profile, first_name: e.target.value });
+                }}
                 style={{ width: 100, padding: "1px 4px", fontSize: 20 }}
               />
             </div>
@@ -87,15 +104,28 @@ function ProfileSetting() {
               歳 :{" "}
               <input
                 value={teacher.age}
+                onChange={(e) => {
+                  setTeacher({ ...teacher, age: e.target.value });
+                  setProfile({ ...profile, age: e.target.value });
+                }}
                 style={{ width: 80, padding: 4, fontSize: 20 }}
               />
             </h4>
             <h4>
               性別 :{" "}
-              <input
-                value={teacher.sex}
-                style={{ width: 100, padding: 4, fontSize: 20 }}
-              />
+              <select
+                name=""
+                onChange={(e) => {
+                  setTeacher({ ...teacher, sex: e.target.value });
+                  setProfile({ ...profile, sex: e.target.value });
+                }}
+              >
+                <option className={cx("option-header")}>
+                  {teacher.sex === "Male" ? "男の人" : "女の人"}
+                </option>
+                <option value="Male">男の人</option>
+                <option value="Famale">女の人</option>
+              </select>
             </h4>
           </div>
           <div className={cx("profile-title")}>
@@ -131,32 +161,112 @@ function ProfileSetting() {
         <div className={cx("left")}>
           <div className={cx("header-profile")}>
             <h4 className={cx("profile-info")}>個人情報</h4>
+            <div>
+              <Button variant="contained" type="submit">
+                Saved
+              </Button>
+            </div>
           </div>
           <p className={cx("p-profile")}>{profileTeacher.detailInfo}</p>
           <div className={cx("profile-info")}>
             <h4 className={cx("pd-r15")}>レベル</h4>
-            <p>{resultLevel[0] && <> {resultLevel[0].level_name}</>}</p>
+            <select
+              name=""
+              onChange={(e) => {
+                setTeacher({
+                  ...teacher,
+                  level: e.target.value,
+                });
+              }}
+            >
+              <option className={cx("option-header")}>
+                {resultLevel[0] && <> {resultLevel[0].level_name}</>}
+              </option>
+              <option value="1">ビギナー</option>
+              <option value="2">初級</option>
+              <option value="3">中級</option>
+              <option value="4">上級</option>
+            </select>
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>曜日</h4>
-            <p>{resultDay[0] && <> {resultDay[0].day_name}</>}</p>
+            <select
+              name=""
+              onChange={(e) => {
+                setTeacher({
+                  ...teacher,
+                  available_day: e.target.value,
+                });
+              }}
+            >
+              <option className={cx("option-header")}>
+                {resultDay[0] && <> {resultDay[0].day_name}</>}
+              </option>
+              <option value="2">月曜日</option>
+              <option value="3">火曜日</option>
+              <option value="4">水曜日</option>
+              <option value="5">木曜日</option>
+              <option value="6">金曜日</option>
+              <option value="7">土曜日</option>
+              <option value="8">日曜日</option>
+            </select>
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>時間</h4>
-            {/* <p>{teacher.time}</p> */}
-            <p>朝</p>
+            <select
+              name=""
+              className={cx("chung")}
+              onChange={(e) => {
+                setTeacher({
+                  ...teacher,
+                  available_time: e.target.value,
+                });
+              }}
+            >
+              <option className={cx("option-header")}>
+                {resultTime[0] && <> {resultTime[0].time_name}</>}
+              </option>
+              <option value="Morning">朝</option>
+              <option value="Noon">昼</option>
+              <option value="Evening">夕方</option>
+              <option value="Night">夜</option>
+            </select>
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>場所</h4>
-            <p>{teacher.address}</p>
+            <select
+              name=""
+              onChange={(e) => {
+                setTeacher({
+                  ...teacher,
+                  address: e.target.value,
+                });
+              }}
+            >
+              <option className={cx("option-header")}>{teacher.address}</option>
+              <option value="Ha Noi">Ha Noi</option>
+              <option value="Ho Chi Minh">Ho Chi Minh</option>
+            </select>
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>料金</h4>
-            <p>{teacher.tution}</p>
+            <select
+              name=""
+              onChange={(e) => {
+                setTeacher({
+                  ...teacher,
+                  tution: e.target.value,
+                });
+              }}
+            >
+              <option className={cx("option-header")}>{teacher.tution} </option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+            </select>
           </div>
-          <Button variant="contained" type="submit">
-            Oke
-          </Button>
         </div>
       </form>
     </>

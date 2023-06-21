@@ -5,7 +5,7 @@ import { teacherApi } from "../../../services/teacher-api";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { profileTeacher } from "../../../data/profileTeacher";
-import { levels, days } from "../../../data/target";
+import { levels, days, times } from "../../../data/target";
 import { Backdrop, Box, Fade, Modal } from "@mui/material";
 import Feedback from "../../Feedback";
 import { feedbackApi } from "../../../services/feedback-api";
@@ -30,9 +30,12 @@ function Info() {
   const { user } = useContext(UserContext);
   const params = useParams();
   const [teacher, setTeacher] = useState({});
+  const [profile, setProfile] = useState({});
   const [feedbacks, setFeedbacks] = useState({});
   const [resultLevel, setResultLevel] = useState([]);
   const [resultDay, setResultDay] = useState([]);
+  const [resultTime, setResultTime] = useState([]);
+
   const [open, setOpen] = useState(false);
   const [bookmark, setBookmark] = useState({});
 
@@ -56,6 +59,10 @@ function Info() {
     setResultDay(day ? [day] : []);
   }, [teacher.available_day]);
 
+  useEffect(() => {
+    const time = times.find((item) => item.id === teacher.available_time);
+    setResultTime(time ? [time] : []);
+  }, [teacher.available_time]);
   const getTeacher = async () => {
     let res = await teacherApi.getTeacher(params.id);
     setTeacher(res);
@@ -129,7 +136,7 @@ function Info() {
           </div>
           <div className={cx("profile-title")}>
             <h4 style={{ paddingRight: 58 }}>歳 :{teacher.age}</h4>
-            <h4>性別 :{teacher.sex === "Female" ? "女人" : "男人"}</h4>
+            <h4>性別 : {teacher.sex === "Male" ? "男の人" : "女の人"}</h4>
           </div>
           <div className={cx("profile-title")}>
             <h4 style={{ paddingRight: 45 }}>メール</h4>
@@ -160,7 +167,7 @@ function Info() {
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>時間</h4>
             {/* <p>{teacher.time}</p> */}
-            <p>朝</p>
+            <p>{resultTime[0] && <> {resultTime[0].time_name}</>}</p>
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>場所</h4>
@@ -168,7 +175,7 @@ function Info() {
           </div>
           <div className={cx("profile-info-mt10")}>
             <h4 className={cx("pd-r35")}>料金</h4>
-            <p>{teacher.tution}</p>
+            <p>{teacher.tution} 円</p>
           </div>
           <div className={cx("bottom-btn")}>
             <button className={cx("btn")} onClick={handleOpen}>
