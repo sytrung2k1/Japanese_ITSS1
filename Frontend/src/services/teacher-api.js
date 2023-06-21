@@ -2,7 +2,7 @@ import { axiosClient } from "./axios-client";
 
 export const teacherApi = {
   getTeachers() {
-    return axiosClient.get(`/teacher-profiles/`);
+    return axiosClient.get(`/teacher-profiles/details/`);
   },
   getTeacher(teacher_id) {
     return axiosClient.get(`/teacher-profiles/details/${teacher_id}`);

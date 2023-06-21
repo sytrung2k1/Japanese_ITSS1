@@ -2,13 +2,16 @@ import classNames from "classnames/bind";
 import styles from "./Info.module.scss";
 import { FaStar } from "react-icons/fa";
 import { teacherApi } from "../../../services/teacher-api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { profileTeacher } from "../../../data/profileTeacher";
 import { levels, days } from "../../../data/target";
 import { Backdrop, Box, Fade, Modal } from "@mui/material";
 import Feedback from "../../Feedback";
 import { feedbackApi } from "../../../services/feedback-api";
+import { bookmarkApi } from "../../../services/bookmark-api";
+import { UserContext } from "../../../contexts/UserContext";
+import { toast } from "react-toastify";
 const cx = classNames.bind(styles);
 
 const style = {
@@ -24,12 +27,15 @@ const style = {
 };
 
 function Info() {
+  const { user } = useContext(UserContext);
   const params = useParams();
   const [teacher, setTeacher] = useState({});
   const [feedbacks, setFeedbacks] = useState({});
   const [resultLevel, setResultLevel] = useState([]);
   const [resultDay, setResultDay] = useState([]);
   const [open, setOpen] = useState(false);
+  const [bookmark, setBookmark] = useState({});
+
   const handleOpen = () => {
     setOpen(true);
     getFeedbacks();
@@ -53,13 +59,41 @@ function Info() {
   const getTeacher = async () => {
     let res = await teacherApi.getTeacher(params.id);
     setTeacher(res);
+    // console.log("first:", user);
+    setBookmark({
+      ...bookmark,
+      teacher_profile_id: res.id,
+      target_id: res.target_id,
+      status: 0,
+    });
   };
 
   const getFeedbacks = async () => {
     let res = await feedbackApi.getFeedback(teacher.id);
     setFeedbacks(res);
-    console.log("fb: ", res);
   };
+
+  const handleBookmark = () => {
+    // let res = await bookmarkApi.createBookmark(bookmark);
+    let i = 0;
+    console.log("bookmark: ", bookmark);
+    // console.log("user1: ", user.userId);
+    setBookmark((prevBookmark) => ({
+      ...prevBookmark,
+      studentId: user.userId,
+    }));
+    toast.success("Bookmark thành công !");
+
+    // console.log("bookmark2: ", bookmark);
+  };
+
+  useEffect(() => {
+    const createBookmark = async () => {
+      console.log("bookmark2: ", bookmark);
+      let res = await bookmarkApi.createBookmark(bookmark);
+    };
+    createBookmark();
+  }, [bookmark.studentId]);
 
   return (
     <>
@@ -105,7 +139,9 @@ function Info() {
             <h4 style={{ paddingRight: 45 }}>電話番号</h4>
             <h4>: {teacher.phone_number}</h4>
           </div>
-          <button className={cx("left-btn")}>仮申し込み</button>
+          <button className={cx("left-btn")} onClick={handleBookmark}>
+            仮申し込み
+          </button>
         </div>
         <div className={cx("left")}>
           <div className={cx("header-profile")}>

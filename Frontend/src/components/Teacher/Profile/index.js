@@ -109,7 +109,6 @@ function Profile() {
             <h4 style={{ paddingRight: 45 }}>電話番号</h4>
             <h4>: {teacher.phone_number}</h4>
           </div>
-          <button className={cx("left-btn")}>仮申し込み</button>
         </div>
         <div className={cx("left")}>
           <div className={cx("header-profile")}>
