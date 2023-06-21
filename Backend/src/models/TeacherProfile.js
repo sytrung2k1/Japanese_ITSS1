@@ -3,7 +3,7 @@ const db = require("../services/db");
 // Create a teacher profile
 async function createTeacherProfile(teacherProfileData) {
 	const query = `INSERT INTO TeacherProfile 
-    (teacher_id, target_id, mail, phone_number, experience, level, tution, address, available_day)
+    (teacher_id, target_id, mail, phone_number, experience, level, tution, address, available_day, bio, date)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 	const values = [
 		teacherProfileData.teacher_id,
@@ -15,6 +15,8 @@ async function createTeacherProfile(teacherProfileData) {
 		teacherProfileData.tution,
 		teacherProfileData.address,
 		teacherProfileData.available_day,
+		teacherProfileData.bio,
+		teacherProfileData.date,
 	];
 
 	try {
@@ -52,6 +54,8 @@ async function getAllDetailTeacherProfile() {
   TeacherProfile.tution,
   TeacherProfile.address,
   TeacherProfile.available_day,
+	TeacherProfile.bio,
+	TeacherProfile.date,
   User.user_name,
   User.first_name,
   User.last_name,
@@ -85,6 +89,8 @@ async function getDetailTeacherProfileById(teacherProfileId) {
   TeacherProfile.tution,
   TeacherProfile.address,
   TeacherProfile.available_day,
+	TeacherProfile.bio,
+	TeacherProfile.date,
   User.user_name,
   User.first_name,
   User.last_name,
@@ -141,6 +147,8 @@ async function filterDetailTeacherProfile(teacherProfileData) {
 		TeacherProfile.tution,
 		TeacherProfile.address,
 		TeacherProfile.available_day,
+		TeacherProfile.bio,
+		TeacherProfile.date,
 		User.user_name,
 		User.first_name,
 		User.last_name,
@@ -191,6 +199,14 @@ async function filterDetailTeacherProfile(teacherProfileData) {
 			query += ` TeacherProfile.mail LIKE '%${teacherProfileData.mail}%' AND `;
 		}
 
+		if (teacherProfileData.bio !== undefined) {
+			query += ` TeacherProfile.bio LIKE '%${teacherProfileData.bio}%' AND `;
+		}
+
+		if (teacherProfileData.date !== undefined) {
+			query += ` TeacherProfile.date LIKE '%${teacherProfileData.date}%' AND `;
+		}
+
 		query += ` 1 = 1 `;
 
 		// console.log(query);
@@ -208,7 +224,7 @@ async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
 	try {
 		const query = `UPDATE TeacherProfile SET 
     teacher_id = ?, target_id = ?, mail = ?, phone_number = ?, 
-    experience = ?, level = ?, tution = ?, address = ?, available_day = ?
+    experience = ?, level = ?, tution = ?, address = ?, available_day = ?, bio = ?, date = ?
     WHERE id = ?`;
 
 		const data = await getTeacherProfileById(teacherProfileId);
@@ -222,6 +238,8 @@ async function updateTeacherProfile(teacherProfileId, teacherProfileData) {
 			teacherProfileData.tution || data.tution,
 			teacherProfileData.address || data.address,
 			teacherProfileData.available_day || data.available_day,
+			teacherProfileData.bio || data.bio,
+			teacherProfileData.date || data.date,
 			teacherProfileId,
 		];
 
