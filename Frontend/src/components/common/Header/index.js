@@ -2,12 +2,12 @@ import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import { Avatar } from "@mui/material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import { NavDropdown } from "react-bootstrap";
+import { Dropdown, NavDropdown } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
-
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -35,10 +35,28 @@ function Header() {
           />
 
           <NavDropdown title="">
+            {token && user && (
+              <Dropdown.ItemText
+                style={{
+                  fontWeight: 600,
+                  fontSize: 18,
+                  borderBottom: "1px soild red",
+                }}
+              >
+                <AccountCircleIcon /> {user.username}
+              </Dropdown.ItemText>
+            )}
             {!token && (
               <NavDropdown.Item href="/login">
                 <NavLink to="/login" className="nav-link">
                   Login
+                </NavLink>
+              </NavDropdown.Item>
+            )}
+            {token && user.role === 3 && (
+              <NavDropdown.Item href="/profile">
+                <NavLink to="/profile" className="nav-link">
+                  Profile
                 </NavLink>
               </NavDropdown.Item>
             )}

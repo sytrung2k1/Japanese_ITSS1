@@ -11,6 +11,6 @@ export const teacherApi = {
     return axiosClient.post(`/teacher-profiles/details/`, appliedFilters);
   },
   updateProfile(id, info) {
-    return axiosClient.post(`/teacher-profiles/details/${id}`, info);
+    return axiosClient.put(`/teacher-profiles/${id}`, info);
   },
 };
