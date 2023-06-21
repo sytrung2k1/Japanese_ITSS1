@@ -37,8 +37,11 @@ async function getAllBookmarks() {
 
 // Read a bookmark by ID
 async function getBookmarkById(bookmarkId) {
-	const query = "SELECT * FROM Bookmark WHERE id = ?";
-	const values = [bookmarkId];
+	const studentId = bookmarkId.studentId;
+	const teacher_profile_id = bookmarkId.teacher_profile_id;
+	const query =
+		"SELECT * FROM Bookmark WHERE studentId = ? AND teacher_profile_id = ?";
+	const values = [studentId, teacher_profile_id];
 
 	try {
 		const result = await db.query(query, values);
@@ -50,22 +53,22 @@ async function getBookmarkById(bookmarkId) {
 }
 
 // Update a bookmark by ID
-async function updateBookmark(bookmarkId, data) {
+async function updateBookmark(data) {
 	try {
+		const studentId = data.studentId;
+		const teacher_profile_id = data.teacher_profile_id;
 		const query = `UPDATE Bookmark SET
-    studentId = ?,
-    teacher_profile_id = ?,
     target_id = ?,
     status = ?
-    WHERE id = ?`;
+    WHERE studentId = ? AND teacher_profile_id = ?`;
 
-		const bookmark = await getBookmarkById(bookmarkId);
+		const mBookmark = await getBookmarkById(data);
+		const bookmark = mBookmark[0];
 		const values = [
-			data.studentId || bookmark.studentId,
-			data.teacher_profile_id || bookmark.teacher_profile_id,
 			data.target_id || bookmark.target_id,
 			data.status || bookmark.status,
-			bookmarkId,
+			studentId,
+			teacher_profile_id,
 		];
 
 		const result = await db.query(query, values);
@@ -78,8 +81,11 @@ async function updateBookmark(bookmarkId, data) {
 
 // Delete a bookmark by ID
 async function deleteBookmark(bookmarkId) {
-	const query = "DELETE FROM Bookmark WHERE id = ?";
-	const values = [bookmarkId];
+	const studentId = bookmarkId.studentId;
+	const teacher_profile_id = bookmarkId.teacher_profile_id;
+	const query =
+		"DELETE FROM Bookmark WHERE studentId = ? AND teacher_profile_id = ?";
+	const values = [studentId, teacher_profile_id];
 
 	try {
 		const result = await db.query(query, values);
