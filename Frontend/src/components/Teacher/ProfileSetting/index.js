@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { levels, days, times } from "../../../data/target";
 import { teacherApi } from "../../../services/teacher-api";
 import { FaStar } from "react-icons/fa";
-import { profileTeacher } from "../../../data/profileTeacher";
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
@@ -167,7 +166,7 @@ function ProfileSetting() {
               </Button>
             </div>
           </div>
-          <p className={cx("p-profile")}>{profileTeacher.detailInfo}</p>
+          <p className={cx("p-profile")}>{teacher.bio}</p>
           <div className={cx("profile-info")}>
             <h4 className={cx("pd-r15")}>レベル</h4>
             <select

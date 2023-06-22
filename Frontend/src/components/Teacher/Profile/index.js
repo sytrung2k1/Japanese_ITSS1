@@ -6,7 +6,6 @@ import { teacherApi } from "../../../services/teacher-api";
 import { FaStar } from "react-icons/fa";
 import { feedbackApi } from "../../../services/feedback-api";
 import { Backdrop, Box, Fade, Modal } from "@mui/material";
-import { profileTeacher } from "../../../data/profileTeacher";
 import Feedback from "../../Feedback";
 
 import { Link } from "react-router-dom";
@@ -123,7 +122,7 @@ function Profile() {
               <button className={cx("btn")}>編集</button>
             </Link>
           </div>
-          <p className={cx("p-profile")}>{profileTeacher.detailInfo}</p>
+          <p className={cx("p-profile")}>{teacher.bio}</p>
           <div className={cx("profile-info")}>
             <h4 className={cx("pd-r15")}>レベル</h4>
             <p>{resultLevel[0] && <> {resultLevel[0].level_name}</>}</p>

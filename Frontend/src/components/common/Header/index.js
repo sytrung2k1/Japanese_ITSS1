@@ -60,6 +60,13 @@ function Header() {
                 </NavLink>
               </NavDropdown.Item>
             )}
+            {token && user.role === 2 && (
+              <NavDropdown.Item href="/home">
+                <NavLink to="/home" className="nav-link">
+                  ホーム
+                </NavLink>
+              </NavDropdown.Item>
+            )}
             {token && (
               <NavDropdown.Item onClick={() => handleLogout()}>
                 ログアウト
