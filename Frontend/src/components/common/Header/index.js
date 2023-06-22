@@ -18,7 +18,7 @@ function Header() {
   const handleLogout = () => {
     logout();
     navigate("/login");
-    toast.success("Logout Success !");
+    toast.success("ログアウトしました !");
   };
 
   return (
@@ -49,20 +49,20 @@ function Header() {
             {!token && (
               <NavDropdown.Item href="/login">
                 <NavLink to="/login" className="nav-link">
-                  Login
+                  ログイン
                 </NavLink>
               </NavDropdown.Item>
             )}
             {token && user.role === 3 && (
               <NavDropdown.Item href="/profile">
                 <NavLink to="/profile" className="nav-link">
-                  Profile
+                  プロフィール
                 </NavLink>
               </NavDropdown.Item>
             )}
             {token && (
               <NavDropdown.Item onClick={() => handleLogout()}>
-                Logout
+                ログアウト
               </NavDropdown.Item>
             )}
           </NavDropdown>

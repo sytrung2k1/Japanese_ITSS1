@@ -38,6 +38,7 @@ function Info() {
 
   const [open, setOpen] = useState(false);
   const [bookmark, setBookmark] = useState({});
+  const [bookmarked, setBookmarked] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -67,6 +68,9 @@ function Info() {
     let res = await teacherApi.getTeacher(params.id);
     setTeacher(res);
     // console.log("first:", user);
+    // let res2 = await bookmarkApi.searchBookmark(51, 131);
+    // console.log("resssss:", res2);
+
     setBookmark({
       ...bookmark,
       teacher_profile_id: res.id,
@@ -89,9 +93,8 @@ function Info() {
       ...prevBookmark,
       studentId: user.userId,
     }));
-    toast.success("Bookmark thành công !");
-
-    // console.log("bookmark2: ", bookmark);
+    setBookmarked(true);
+    toast.success("ブックマークしました !");
   };
 
   useEffect(() => {
@@ -146,9 +149,19 @@ function Info() {
             <h4 style={{ paddingRight: 45 }}>電話番号</h4>
             <h4>: {teacher.phone_number}</h4>
           </div>
-          <button className={cx("left-btn")} onClick={handleBookmark}>
-            仮申し込み
-          </button>
+          {!bookmarked ? (
+            <button className={cx("left-btn")} onClick={handleBookmark}>
+              仮申し込み
+            </button>
+          ) : (
+            <button
+              disabled
+              className={cx("left-btn-bookmark")}
+              onClick={handleBookmark}
+            >
+              仮申し込みをした
+            </button>
+          )}
         </div>
         <div className={cx("left")}>
           <div className={cx("header-profile")}>

@@ -48,7 +48,7 @@ function ProfileSetting() {
     let res = await teacherApi.updateProfile(teacher.id, teacher);
     let res2 = await userApi.updateUser(teacher.teacher_id, profile);
     navigate("/profile"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
-    toast.success("Update thành công !");
+    toast.success("編集しました !");
   };
 
   return (

@@ -35,16 +35,16 @@ function Login() {
           response.user_id
         );
         if (response.roleId === 1) {
-          navigate("/admin/manager"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+          navigate("/admin/manager");
+        } else if (response.roleId === 3) {
+          navigate("/profile");
         } else {
-          navigate("/home"); // Chuyển đến trang chính hoặc làm bất kỳ điều gì bạn cần
+          navigate("/home");
         }
-
-        toast.success("Đăng nhập thành công");
+        toast.success("ログインしました !");
       } else {
         if (response && response.status === 500) {
-          toast.error(response.data.message);
-
+          toast.error("ユーザー名またはパスワードが正しくありません !");
           console.log("errror2: ", response.status);
         }
       }

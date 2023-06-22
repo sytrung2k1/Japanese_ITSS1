@@ -41,7 +41,12 @@ function App() {
         {/* 2 Quỳnh*/}
         <Route path="/signup" element={<SignUp />} />
         {/* 3 Quỳnh*/}
-        <Route path="/home" element={<HomeSearch />} />
+        <Route
+          path="/home"
+          element={
+            role !== "1" && role !== "3" ? <HomeSearch /> : <h1>Not found</h1>
+          }
+        />
         {/* 4 Tú*/}
         <Route
           path="/info/:id"
