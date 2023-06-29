@@ -162,7 +162,7 @@ function ProfileSetting() {
             <h4 className={cx("profile-info")}>個人情報</h4>
             <div>
               <Button variant="contained" type="submit">
-                Saved
+              保存
               </Button>
             </div>
           </div>
